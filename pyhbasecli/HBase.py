@@ -248,14 +248,14 @@ class ColumnsValue:
         return self.instance
 
 
-def StrEncoder(x: Any, y: str) -> bytes:
+def StrEncoder(x: Any, y: Optional[str] = None) -> bytes:
     """字符串编码器.
 
     将python对象的字面量编码为字节流.
 
     Args:
         x (Any): python对象
-        y (str): 无用占位
+        y (Optional[str]): 无用占位
 
     Returns:
         bytes: 编码后的结果
@@ -263,14 +263,14 @@ def StrEncoder(x: Any, y: str) -> bytes:
     return str(x).encode("utf-8")
 
 
-def StrDecoder(x: bytes, y: bytes) -> str:
+def StrDecoder(x: bytes, y: Optional[bytes] = None) -> str:
     """字符串解码器.
 
     将字节流解码为将python字符串.
 
     Args:
-        x (bytes): 待解码字节流为
-        y (bytes): 无用占位
+        x (bytes): 待解码字节流
+        y (Optional[bytes]): 无用占位
 
     Returns:
         str: 字符串
@@ -278,14 +278,14 @@ def StrDecoder(x: bytes, y: bytes) -> str:
     return x.decode("utf-8")
 
 
-def JsonEncoder(x: Any, y: str) -> bytes:
+def JsonEncoder(x: Any, y: Optional[str] = None) -> bytes:
     """json编码器.
 
     将python对象用json编码为字节流.
 
     Args:
         x (Any): python对象
-        y (str): 无用占位
+        y (Optional[str]): 无用占位
 
     Returns:
         bytes: 编码后的结果
@@ -293,19 +293,34 @@ def JsonEncoder(x: Any, y: str) -> bytes:
     return json.dumps(x).encode("utf-8")
 
 
-def JsonDecoder(x: bytes, y: bytes) -> Any:
+def JsonDecoder(x: bytes, y: Optional[bytes] = None) -> Any:
     """json解码器.
 
     将字节流解码为将python字符串.
 
     Args:
-        x (bytes): 待解码字节流为
-        y (bytes): 无用占位
+        x (bytes): 待解码字节流
+        y (Optional[bytes]): 无用占位
 
     Returns:
         Any: python对象
     """
     return json.loads(x.decode("utf-8"))
+
+
+def NumberDecoder(x: bytes, y: Optional[bytes] = None) -> int:
+    """将bytes转化为int型数据.
+
+    用于获取incr操作列中的当前值.
+
+    Args:
+        x (bytes): 待解码字节流
+        y (bytes): 无用占位
+
+    Returns:
+        int: 当前值
+    """
+    return int(str(binascii.b2a_hex(x))[2:-1], 16)
 
 
 def _createClosestRowAfter(row: bytes) -> bytes:
@@ -1396,7 +1411,7 @@ class HBaseCli:
             family = tcv.family.decode("utf-8")
             col = tcv.qualifier.decode("utf-8")
             col_name = fullcolumn(family, col)
-            value = int(str(binascii.b2a_hex(tcv.value))[2:-1], 16)
+            value = NumberDecoder(tcv.value)
             res[col_name] = value
         return res
 
