@@ -17,7 +17,7 @@
 import json
 import binascii
 import datetime
-from typing import Callable, Dict, List, Mapping, Sequence, Optional, Any, List, Dict, Tuple, Union, Tuple, TypeVar
+from typing import Callable, Dict, List, Mapping, Sequence, Optional, Any, List, Dict, Tuple, Union, Tuple
 from thrift.protocol import TBinaryProtocol
 from thrift.transport import THttpClient
 
