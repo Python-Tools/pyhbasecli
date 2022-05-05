@@ -23,7 +23,7 @@ pip install pyhbasecli
 
 ```python
 with HBaseCli(
-                url="http://ld-bp17y8n3j6f45p944-proxy-hbaseue.hbaseue.rds.aliyuncs.com:9190",
+                url=URL,
                 headers={"ACCESSKEYID": "root", "ACCESSSIGNATURE": "root"}) as client:
     nsinfo = client.show_namespaces()
     print(nsinfo)
