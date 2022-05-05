@@ -1,0 +1,8 @@
+{
+    "added_components": {
+        "cp_py_files@v0.0.1//class_simple": "example/example.py",
+        "tp_py_module@v0.0.1//mod": "example",
+        "cp_python_test@v0.0.1//simplemodule_tests": "tests"
+    },
+    "env": "venv"
+}
