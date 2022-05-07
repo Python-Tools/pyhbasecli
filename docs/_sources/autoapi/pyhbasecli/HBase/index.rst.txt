@@ -1,0 +1,17 @@
+:py:mod:`pyhbasecli.hbase`
+==========================
+
+.. py:module:: pyhbasecli.hbase
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   THBaseService/index.rst
+   constants/index.rst
+   ttypes/index.rst
+
+

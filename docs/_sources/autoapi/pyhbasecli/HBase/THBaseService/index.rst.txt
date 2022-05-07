@@ -1,0 +1,5257 @@
+:py:mod:`pyhbasecli.hbase.THBaseService`
+========================================
+
+.. py:module:: pyhbasecli.hbase.THBaseService
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyhbasecli.hbase.THBaseService.Iface
+   pyhbasecli.hbase.THBaseService.Client
+   pyhbasecli.hbase.THBaseService.Processor
+   pyhbasecli.hbase.THBaseService.exists_args
+   pyhbasecli.hbase.THBaseService.exists_result
+   pyhbasecli.hbase.THBaseService.existsAll_args
+   pyhbasecli.hbase.THBaseService.existsAll_result
+   pyhbasecli.hbase.THBaseService.get_args
+   pyhbasecli.hbase.THBaseService.get_result
+   pyhbasecli.hbase.THBaseService.getMultiple_args
+   pyhbasecli.hbase.THBaseService.getMultiple_result
+   pyhbasecli.hbase.THBaseService.put_args
+   pyhbasecli.hbase.THBaseService.put_result
+   pyhbasecli.hbase.THBaseService.checkAndPut_args
+   pyhbasecli.hbase.THBaseService.checkAndPut_result
+   pyhbasecli.hbase.THBaseService.putMultiple_args
+   pyhbasecli.hbase.THBaseService.putMultiple_result
+   pyhbasecli.hbase.THBaseService.deleteSingle_args
+   pyhbasecli.hbase.THBaseService.deleteSingle_result
+   pyhbasecli.hbase.THBaseService.deleteMultiple_args
+   pyhbasecli.hbase.THBaseService.deleteMultiple_result
+   pyhbasecli.hbase.THBaseService.checkAndDelete_args
+   pyhbasecli.hbase.THBaseService.checkAndDelete_result
+   pyhbasecli.hbase.THBaseService.increment_args
+   pyhbasecli.hbase.THBaseService.increment_result
+   pyhbasecli.hbase.THBaseService.append_args
+   pyhbasecli.hbase.THBaseService.append_result
+   pyhbasecli.hbase.THBaseService.openScanner_args
+   pyhbasecli.hbase.THBaseService.openScanner_result
+   pyhbasecli.hbase.THBaseService.getScannerRows_args
+   pyhbasecli.hbase.THBaseService.getScannerRows_result
+   pyhbasecli.hbase.THBaseService.closeScanner_args
+   pyhbasecli.hbase.THBaseService.closeScanner_result
+   pyhbasecli.hbase.THBaseService.mutateRow_args
+   pyhbasecli.hbase.THBaseService.mutateRow_result
+   pyhbasecli.hbase.THBaseService.getScannerResults_args
+   pyhbasecli.hbase.THBaseService.getScannerResults_result
+   pyhbasecli.hbase.THBaseService.getRegionLocation_args
+   pyhbasecli.hbase.THBaseService.getRegionLocation_result
+   pyhbasecli.hbase.THBaseService.getAllRegionLocations_args
+   pyhbasecli.hbase.THBaseService.getAllRegionLocations_result
+   pyhbasecli.hbase.THBaseService.checkAndMutate_args
+   pyhbasecli.hbase.THBaseService.checkAndMutate_result
+   pyhbasecli.hbase.THBaseService.getTableDescriptor_args
+   pyhbasecli.hbase.THBaseService.getTableDescriptor_result
+   pyhbasecli.hbase.THBaseService.getTableDescriptors_args
+   pyhbasecli.hbase.THBaseService.getTableDescriptors_result
+   pyhbasecli.hbase.THBaseService.tableExists_args
+   pyhbasecli.hbase.THBaseService.tableExists_result
+   pyhbasecli.hbase.THBaseService.getTableDescriptorsByPattern_args
+   pyhbasecli.hbase.THBaseService.getTableDescriptorsByPattern_result
+   pyhbasecli.hbase.THBaseService.getTableDescriptorsByNamespace_args
+   pyhbasecli.hbase.THBaseService.getTableDescriptorsByNamespace_result
+   pyhbasecli.hbase.THBaseService.getTableNamesByPattern_args
+   pyhbasecli.hbase.THBaseService.getTableNamesByPattern_result
+   pyhbasecli.hbase.THBaseService.getTableNamesByNamespace_args
+   pyhbasecli.hbase.THBaseService.getTableNamesByNamespace_result
+   pyhbasecli.hbase.THBaseService.createTable_args
+   pyhbasecli.hbase.THBaseService.createTable_result
+   pyhbasecli.hbase.THBaseService.deleteTable_args
+   pyhbasecli.hbase.THBaseService.deleteTable_result
+   pyhbasecli.hbase.THBaseService.truncateTable_args
+   pyhbasecli.hbase.THBaseService.truncateTable_result
+   pyhbasecli.hbase.THBaseService.enableTable_args
+   pyhbasecli.hbase.THBaseService.enableTable_result
+   pyhbasecli.hbase.THBaseService.disableTable_args
+   pyhbasecli.hbase.THBaseService.disableTable_result
+   pyhbasecli.hbase.THBaseService.isTableEnabled_args
+   pyhbasecli.hbase.THBaseService.isTableEnabled_result
+   pyhbasecli.hbase.THBaseService.isTableDisabled_args
+   pyhbasecli.hbase.THBaseService.isTableDisabled_result
+   pyhbasecli.hbase.THBaseService.isTableAvailable_args
+   pyhbasecli.hbase.THBaseService.isTableAvailable_result
+   pyhbasecli.hbase.THBaseService.isTableAvailableWithSplit_args
+   pyhbasecli.hbase.THBaseService.isTableAvailableWithSplit_result
+   pyhbasecli.hbase.THBaseService.addColumnFamily_args
+   pyhbasecli.hbase.THBaseService.addColumnFamily_result
+   pyhbasecli.hbase.THBaseService.deleteColumnFamily_args
+   pyhbasecli.hbase.THBaseService.deleteColumnFamily_result
+   pyhbasecli.hbase.THBaseService.modifyColumnFamily_args
+   pyhbasecli.hbase.THBaseService.modifyColumnFamily_result
+   pyhbasecli.hbase.THBaseService.modifyTable_args
+   pyhbasecli.hbase.THBaseService.modifyTable_result
+   pyhbasecli.hbase.THBaseService.createNamespace_args
+   pyhbasecli.hbase.THBaseService.createNamespace_result
+   pyhbasecli.hbase.THBaseService.modifyNamespace_args
+   pyhbasecli.hbase.THBaseService.modifyNamespace_result
+   pyhbasecli.hbase.THBaseService.deleteNamespace_args
+   pyhbasecli.hbase.THBaseService.deleteNamespace_result
+   pyhbasecli.hbase.THBaseService.getNamespaceDescriptor_args
+   pyhbasecli.hbase.THBaseService.getNamespaceDescriptor_result
+   pyhbasecli.hbase.THBaseService.listNamespaceDescriptors_args
+   pyhbasecli.hbase.THBaseService.listNamespaceDescriptors_result
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   pyhbasecli.hbase.THBaseService.all_structs
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+   pyhbasecli.hbase.THBaseService.thrift_spec
+
+
+.. py:data:: all_structs
+   :annotation: = []
+
+   
+
+.. py:class:: Iface
+
+   Bases: :py:obj:`object`
+
+   .. py:method:: exists(self, table, tget)
+
+      Test for the existence of columns in the table, as specified in the TGet.
+
+      @return true if the specified TGet matches one or more keys, false if not
+
+      :param - table: the table to check on
+      :param - tget: the TGet to check for
+
+
+   .. py:method:: existsAll(self, table, tgets)
+
+      Test for the existence of columns in the table, as specified by the TGets.
+
+      This will return an array of booleans. Each value will be true if the related Get matches
+      one or more keys, false if not.
+
+      :param - table: the table to check on
+      :param - tgets: a list of TGets to check for
+
+
+   .. py:method:: get(self, table, tget)
+
+      Method for getting data from a row.
+
+      If the row cannot be found an empty Result is returned.
+      This can be checked by the empty field of the TResult
+
+      @return the result
+
+      :param - table: the table to get from
+      :param - tget: the TGet to fetch
+
+
+   .. py:method:: getMultiple(self, table, tgets)
+
+      Method for getting multiple rows.
+
+      If a row cannot be found there will be a null
+      value in the result list for that TGet at the
+      same position.
+
+      So the Results are in the same order as the TGets.
+
+      :param - table: the table to get from
+      :param - tgets: a list of TGets to fetch, the Result list
+
+      will have the Results at corresponding positions
+      or null if there was an error
+
+
+
+   .. py:method:: put(self, table, tput)
+
+      Commit a TPut to a table.
+
+      :param - table: the table to put data in
+      :param - tput: the TPut to put
+
+
+   .. py:method:: checkAndPut(self, table, row, family, qualifier, value, tput)
+
+      Atomically checks if a row/family/qualifier value matches the expected
+      value. If it does, it adds the TPut.
+
+      @return true if the new put was executed, false otherwise
+
+      :param - table: to check in and put to
+      :param - row: row to check
+      :param - family: column family to check
+      :param - qualifier: column qualifier to check
+      :param - value: the expected value, if not provided the
+
+      check is for the non-existence of the
+      column in question
+       - tput: the TPut to put if the check succeeds
+
+
+
+   .. py:method:: putMultiple(self, table, tputs)
+
+      Commit a List of Puts to the table.
+
+      :param - table: the table to put data in
+      :param - tputs: a list of TPuts to commit
+
+
+   .. py:method:: deleteSingle(self, table, tdelete)
+
+      Deletes as specified by the TDelete.
+
+      Note: "delete" is a reserved keyword and cannot be used in Thrift
+      thus the inconsistent naming scheme from the other functions.
+
+      :param - table: the table to delete from
+      :param - tdelete: the TDelete to delete
+
+
+   .. py:method:: deleteMultiple(self, table, tdeletes)
+
+      Bulk commit a List of TDeletes to the table.
+
+      Throws a TIOError if any of the deletes fail.
+
+      Always returns an empty list for backwards compatibility.
+
+      :param - table: the table to delete from
+      :param - tdeletes: list of TDeletes to delete
+
+
+   .. py:method:: checkAndDelete(self, table, row, family, qualifier, value, tdelete)
+
+      Atomically checks if a row/family/qualifier value matches the expected
+      value. If it does, it adds the delete.
+
+      @return true if the new delete was executed, false otherwise
+
+      :param - table: to check in and delete from
+      :param - row: row to check
+      :param - family: column family to check
+      :param - qualifier: column qualifier to check
+      :param - value: the expected value, if not provided the
+
+      check is for the non-existence of the
+      column in question
+       - tdelete: the TDelete to execute if the check succeeds
+
+
+
+   .. py:method:: increment(self, table, tincrement)
+
+      :param - table: the table to increment the value on
+      :param - tincrement: the TIncrement to increment
+
+
+   .. py:method:: append(self, table, tappend)
+
+      :param - table: the table to append the value on
+      :param - tappend: the TAppend to append
+
+
+   .. py:method:: openScanner(self, table, tscan)
+
+      Get a Scanner for the provided TScan object.
+
+      @return Scanner Id to be used with other scanner procedures
+
+      :param - table: the table to get the Scanner for
+      :param - tscan: the scan object to get a Scanner for
+
+
+   .. py:method:: getScannerRows(self, scannerId, numRows)
+
+      Grabs multiple rows from a Scanner.
+
+      @return Between zero and numRows TResults
+
+      :param - scannerId: the Id of the Scanner to return rows from. This is an Id returned from the openScanner function.
+      :param - numRows: number of rows to return
+
+
+   .. py:method:: closeScanner(self, scannerId)
+
+      Closes the scanner. Should be called to free server side resources timely.
+      Typically close once the scanner is not needed anymore, i.e. after looping
+      over it to get all the required rows.
+
+      :param - scannerId: the Id of the Scanner to close *
+
+
+   .. py:method:: mutateRow(self, table, trowMutations)
+
+      mutateRow performs multiple mutations atomically on a single row.
+
+      :param - table: table to apply the mutations
+      :param - trowMutations: mutations to apply
+
+
+   .. py:method:: getScannerResults(self, table, tscan, numRows)
+
+      Get results for the provided TScan object.
+      This helper function opens a scanner, get the results and close the scanner.
+
+      @return between zero and numRows TResults
+
+      :param - table: the table to get the Scanner for
+      :param - tscan: the scan object to get a Scanner for
+      :param - numRows: number of rows to return
+
+
+   .. py:method:: getRegionLocation(self, table, row, reload)
+
+      Given a table and a row get the location of the region that
+      would contain the given row key.
+
+      reload = true means the cache will be cleared and the location
+      will be fetched from meta.
+
+      :param - table:
+      :param - row:
+      :param - reload:
+
+
+   .. py:method:: getAllRegionLocations(self, table)
+
+      Get all of the region locations for a given table.
+
+
+      :param - table:
+
+
+   .. py:method:: checkAndMutate(self, table, row, family, qualifier, compareOp, value, rowMutations)
+
+      Atomically checks if a row/family/qualifier value matches the expected
+      value. If it does, it mutates the row.
+
+      @return true if the row was mutated, false otherwise
+
+      :param - table: to check in and delete from
+      :param - row: row to check
+      :param - family: column family to check
+      :param - qualifier: column qualifier to check
+      :param - compareOp: comparison to make on the value
+      :param - value: the expected value to be compared against, if not provided the
+
+      check is for the non-existence of the column in question
+       - rowMutations: row mutations to execute if the value matches
+
+
+
+   .. py:method:: getTableDescriptor(self, table)
+
+      Get a table descriptor.
+      @return the TableDescriptor of the giving tablename
+
+
+      :param - table: the tablename of the table to get tableDescriptor
+
+
+   .. py:method:: getTableDescriptors(self, tables)
+
+      Get table descriptors of tables.
+      @return the TableDescriptor of the giving tablename
+
+
+      :param - tables: the tablename list of the tables to get tableDescriptor
+
+
+   .. py:method:: tableExists(self, tableName)
+
+      @return true if table exists already, false if not
+
+
+      :param - tableName: the tablename of the tables to check
+
+
+   .. py:method:: getTableDescriptorsByPattern(self, regex, includeSysTables)
+
+      Get table descriptors of tables that match the given pattern
+      @return the tableDescriptors of the matching table
+
+
+      :param - regex: The regular expression to match against
+      :param - includeSysTables: set to false if match only against userspace tables
+
+
+   .. py:method:: getTableDescriptorsByNamespace(self, name)
+
+      Get table descriptors of tables in the given namespace
+      @return the tableDescriptors in the namespce
+
+
+      :param - name: The namesapce's name
+
+
+   .. py:method:: getTableNamesByPattern(self, regex, includeSysTables)
+
+      Get table names of tables that match the given pattern
+      @return the table names of the matching table
+
+
+      :param - regex: The regular expression to match against
+      :param - includeSysTables: set to false if match only against userspace tables
+
+
+   .. py:method:: getTableNamesByNamespace(self, name)
+
+      Get table names of tables in the given namespace
+      @return the table names of the matching table
+
+
+      :param - name: The namesapce's name
+
+
+   .. py:method:: createTable(self, desc, splitKeys)
+
+      Creates a new table with an initial set of empty regions defined by the specified split keys.
+      The total number of regions created will be the number of split keys plus one. Synchronous
+      operation.
+
+
+      :param - desc: table descriptor for table
+      :param - splitKeys: rray of split keys for the initial regions of the table
+
+
+   .. py:method:: deleteTable(self, tableName)
+
+      Deletes a table. Synchronous operation.
+
+
+      :param - tableName: the tablename to delete
+
+
+   .. py:method:: truncateTable(self, tableName, preserveSplits)
+
+      Truncate a table. Synchronous operation.
+
+
+      :param - tableName: the tablename to truncate
+      :param - preserveSplits: whether to  preserve previous splits
+
+
+   .. py:method:: enableTable(self, tableName)
+
+      Enalbe a table
+
+
+      :param - tableName: the tablename to enable
+
+
+   .. py:method:: disableTable(self, tableName)
+
+      Disable a table
+
+
+      :param - tableName: the tablename to disable
+
+
+   .. py:method:: isTableEnabled(self, tableName)
+
+      @return true if table is enabled, false if not
+
+
+      :param - tableName: the tablename to check
+
+
+   .. py:method:: isTableDisabled(self, tableName)
+
+      @return true if table is disabled, false if not
+
+
+      :param - tableName: the tablename to check
+
+
+   .. py:method:: isTableAvailable(self, tableName)
+
+      @return true if table is available, false if not
+
+
+      :param - tableName: the tablename to check
+
+
+   .. py:method:: isTableAvailableWithSplit(self, tableName, splitKeys)
+
+       * Use this api to check if the table has been created with the specified number of splitkeys
+       * which was used while creating the given table. Note : If this api is used after a table's
+       * region gets splitted, the api may return false.
+       *
+       * @return true if table is available, false if not
+      *
+
+      :param - tableName: the tablename to check
+      :param - splitKeys: keys to check if the table has been created with all split keys
+
+
+   .. py:method:: addColumnFamily(self, tableName, column)
+
+      Add a column family to an existing table. Synchronous operation.
+
+
+      :param - tableName: the tablename to add column family to
+      :param - column: column family descriptor of column family to be added
+
+
+   .. py:method:: deleteColumnFamily(self, tableName, column)
+
+      Delete a column family from a table. Synchronous operation.
+
+
+      :param - tableName: the tablename to delete column family from
+      :param - column: name of column family to be deleted
+
+
+   .. py:method:: modifyColumnFamily(self, tableName, column)
+
+      Modify an existing column family on a table. Synchronous operation.
+
+
+      :param - tableName: the tablename to modify column family
+      :param - column: column family descriptor of column family to be modified
+
+
+   .. py:method:: modifyTable(self, desc)
+
+      Modify an existing table
+
+
+      :param - desc: the descriptor of the table to modify
+
+
+   .. py:method:: createNamespace(self, namespaceDesc)
+
+      Create a new namespace. Blocks until namespace has been successfully created or an exception is
+      thrown
+
+
+      :param - namespaceDesc: descriptor which describes the new namespace
+
+
+   .. py:method:: modifyNamespace(self, namespaceDesc)
+
+      Modify an existing namespace.  Blocks until namespace has been successfully modified or an
+      exception is thrown
+
+
+      :param - namespaceDesc: descriptor which describes the new namespace
+
+
+   .. py:method:: deleteNamespace(self, name)
+
+      Delete an existing namespace. Only empty namespaces (no tables) can be removed.
+      Blocks until namespace has been successfully deleted or an
+      exception is thrown.
+
+
+      :param - name: namespace name
+
+
+   .. py:method:: getNamespaceDescriptor(self, name)
+
+      Get a namespace descriptor by name.
+      @retrun the descriptor
+
+
+      :param - name: name of namespace descriptor
+
+
+   .. py:method:: listNamespaceDescriptors(self)
+
+      @return all namespaces
+
+
+
+
+
+.. py:class:: Client(iprot, oprot=None)
+
+   Bases: :py:obj:`Iface`
+
+   .. py:method:: exists(self, table, tget)
+
+      Test for the existence of columns in the table, as specified in the TGet.
+
+      @return true if the specified TGet matches one or more keys, false if not
+
+      :param - table: the table to check on
+      :param - tget: the TGet to check for
+
+
+   .. py:method:: send_exists(self, table, tget)
+
+
+   .. py:method:: recv_exists(self)
+
+
+   .. py:method:: existsAll(self, table, tgets)
+
+      Test for the existence of columns in the table, as specified by the TGets.
+
+      This will return an array of booleans. Each value will be true if the related Get matches
+      one or more keys, false if not.
+
+      :param - table: the table to check on
+      :param - tgets: a list of TGets to check for
+
+
+   .. py:method:: send_existsAll(self, table, tgets)
+
+
+   .. py:method:: recv_existsAll(self)
+
+
+   .. py:method:: get(self, table, tget)
+
+      Method for getting data from a row.
+
+      If the row cannot be found an empty Result is returned.
+      This can be checked by the empty field of the TResult
+
+      @return the result
+
+      :param - table: the table to get from
+      :param - tget: the TGet to fetch
+
+
+   .. py:method:: send_get(self, table, tget)
+
+
+   .. py:method:: recv_get(self)
+
+
+   .. py:method:: getMultiple(self, table, tgets)
+
+      Method for getting multiple rows.
+
+      If a row cannot be found there will be a null
+      value in the result list for that TGet at the
+      same position.
+
+      So the Results are in the same order as the TGets.
+
+      :param - table: the table to get from
+      :param - tgets: a list of TGets to fetch, the Result list
+
+      will have the Results at corresponding positions
+      or null if there was an error
+
+
+
+   .. py:method:: send_getMultiple(self, table, tgets)
+
+
+   .. py:method:: recv_getMultiple(self)
+
+
+   .. py:method:: put(self, table, tput)
+
+      Commit a TPut to a table.
+
+      :param - table: the table to put data in
+      :param - tput: the TPut to put
+
+
+   .. py:method:: send_put(self, table, tput)
+
+
+   .. py:method:: recv_put(self)
+
+
+   .. py:method:: checkAndPut(self, table, row, family, qualifier, value, tput)
+
+      Atomically checks if a row/family/qualifier value matches the expected
+      value. If it does, it adds the TPut.
+
+      @return true if the new put was executed, false otherwise
+
+      :param - table: to check in and put to
+      :param - row: row to check
+      :param - family: column family to check
+      :param - qualifier: column qualifier to check
+      :param - value: the expected value, if not provided the
+
+      check is for the non-existence of the
+      column in question
+       - tput: the TPut to put if the check succeeds
+
+
+
+   .. py:method:: send_checkAndPut(self, table, row, family, qualifier, value, tput)
+
+
+   .. py:method:: recv_checkAndPut(self)
+
+
+   .. py:method:: putMultiple(self, table, tputs)
+
+      Commit a List of Puts to the table.
+
+      :param - table: the table to put data in
+      :param - tputs: a list of TPuts to commit
+
+
+   .. py:method:: send_putMultiple(self, table, tputs)
+
+
+   .. py:method:: recv_putMultiple(self)
+
+
+   .. py:method:: deleteSingle(self, table, tdelete)
+
+      Deletes as specified by the TDelete.
+
+      Note: "delete" is a reserved keyword and cannot be used in Thrift
+      thus the inconsistent naming scheme from the other functions.
+
+      :param - table: the table to delete from
+      :param - tdelete: the TDelete to delete
+
+
+   .. py:method:: send_deleteSingle(self, table, tdelete)
+
+
+   .. py:method:: recv_deleteSingle(self)
+
+
+   .. py:method:: deleteMultiple(self, table, tdeletes)
+
+      Bulk commit a List of TDeletes to the table.
+
+      Throws a TIOError if any of the deletes fail.
+
+      Always returns an empty list for backwards compatibility.
+
+      :param - table: the table to delete from
+      :param - tdeletes: list of TDeletes to delete
+
+
+   .. py:method:: send_deleteMultiple(self, table, tdeletes)
+
+
+   .. py:method:: recv_deleteMultiple(self)
+
+
+   .. py:method:: checkAndDelete(self, table, row, family, qualifier, value, tdelete)
+
+      Atomically checks if a row/family/qualifier value matches the expected
+      value. If it does, it adds the delete.
+
+      @return true if the new delete was executed, false otherwise
+
+      :param - table: to check in and delete from
+      :param - row: row to check
+      :param - family: column family to check
+      :param - qualifier: column qualifier to check
+      :param - value: the expected value, if not provided the
+
+      check is for the non-existence of the
+      column in question
+       - tdelete: the TDelete to execute if the check succeeds
+
+
+
+   .. py:method:: send_checkAndDelete(self, table, row, family, qualifier, value, tdelete)
+
+
+   .. py:method:: recv_checkAndDelete(self)
+
+
+   .. py:method:: increment(self, table, tincrement)
+
+      :param - table: the table to increment the value on
+      :param - tincrement: the TIncrement to increment
+
+
+   .. py:method:: send_increment(self, table, tincrement)
+
+
+   .. py:method:: recv_increment(self)
+
+
+   .. py:method:: append(self, table, tappend)
+
+      :param - table: the table to append the value on
+      :param - tappend: the TAppend to append
+
+
+   .. py:method:: send_append(self, table, tappend)
+
+
+   .. py:method:: recv_append(self)
+
+
+   .. py:method:: openScanner(self, table, tscan)
+
+      Get a Scanner for the provided TScan object.
+
+      @return Scanner Id to be used with other scanner procedures
+
+      :param - table: the table to get the Scanner for
+      :param - tscan: the scan object to get a Scanner for
+
+
+   .. py:method:: send_openScanner(self, table, tscan)
+
+
+   .. py:method:: recv_openScanner(self)
+
+
+   .. py:method:: getScannerRows(self, scannerId, numRows)
+
+      Grabs multiple rows from a Scanner.
+
+      @return Between zero and numRows TResults
+
+      :param - scannerId: the Id of the Scanner to return rows from. This is an Id returned from the openScanner function.
+      :param - numRows: number of rows to return
+
+
+   .. py:method:: send_getScannerRows(self, scannerId, numRows)
+
+
+   .. py:method:: recv_getScannerRows(self)
+
+
+   .. py:method:: closeScanner(self, scannerId)
+
+      Closes the scanner. Should be called to free server side resources timely.
+      Typically close once the scanner is not needed anymore, i.e. after looping
+      over it to get all the required rows.
+
+      :param - scannerId: the Id of the Scanner to close *
+
+
+   .. py:method:: send_closeScanner(self, scannerId)
+
+
+   .. py:method:: recv_closeScanner(self)
+
+
+   .. py:method:: mutateRow(self, table, trowMutations)
+
+      mutateRow performs multiple mutations atomically on a single row.
+
+      :param - table: table to apply the mutations
+      :param - trowMutations: mutations to apply
+
+
+   .. py:method:: send_mutateRow(self, table, trowMutations)
+
+
+   .. py:method:: recv_mutateRow(self)
+
+
+   .. py:method:: getScannerResults(self, table, tscan, numRows)
+
+      Get results for the provided TScan object.
+      This helper function opens a scanner, get the results and close the scanner.
+
+      @return between zero and numRows TResults
+
+      :param - table: the table to get the Scanner for
+      :param - tscan: the scan object to get a Scanner for
+      :param - numRows: number of rows to return
+
+
+   .. py:method:: send_getScannerResults(self, table, tscan, numRows)
+
+
+   .. py:method:: recv_getScannerResults(self)
+
+
+   .. py:method:: getRegionLocation(self, table, row, reload)
+
+      Given a table and a row get the location of the region that
+      would contain the given row key.
+
+      reload = true means the cache will be cleared and the location
+      will be fetched from meta.
+
+      :param - table:
+      :param - row:
+      :param - reload:
+
+
+   .. py:method:: send_getRegionLocation(self, table, row, reload)
+
+
+   .. py:method:: recv_getRegionLocation(self)
+
+
+   .. py:method:: getAllRegionLocations(self, table)
+
+      Get all of the region locations for a given table.
+
+
+      :param - table:
+
+
+   .. py:method:: send_getAllRegionLocations(self, table)
+
+
+   .. py:method:: recv_getAllRegionLocations(self)
+
+
+   .. py:method:: checkAndMutate(self, table, row, family, qualifier, compareOp, value, rowMutations)
+
+      Atomically checks if a row/family/qualifier value matches the expected
+      value. If it does, it mutates the row.
+
+      @return true if the row was mutated, false otherwise
+
+      :param - table: to check in and delete from
+      :param - row: row to check
+      :param - family: column family to check
+      :param - qualifier: column qualifier to check
+      :param - compareOp: comparison to make on the value
+      :param - value: the expected value to be compared against, if not provided the
+
+      check is for the non-existence of the column in question
+       - rowMutations: row mutations to execute if the value matches
+
+
+
+   .. py:method:: send_checkAndMutate(self, table, row, family, qualifier, compareOp, value, rowMutations)
+
+
+   .. py:method:: recv_checkAndMutate(self)
+
+
+   .. py:method:: getTableDescriptor(self, table)
+
+      Get a table descriptor.
+      @return the TableDescriptor of the giving tablename
+
+
+      :param - table: the tablename of the table to get tableDescriptor
+
+
+   .. py:method:: send_getTableDescriptor(self, table)
+
+
+   .. py:method:: recv_getTableDescriptor(self)
+
+
+   .. py:method:: getTableDescriptors(self, tables)
+
+      Get table descriptors of tables.
+      @return the TableDescriptor of the giving tablename
+
+
+      :param - tables: the tablename list of the tables to get tableDescriptor
+
+
+   .. py:method:: send_getTableDescriptors(self, tables)
+
+
+   .. py:method:: recv_getTableDescriptors(self)
+
+
+   .. py:method:: tableExists(self, tableName)
+
+      @return true if table exists already, false if not
+
+
+      :param - tableName: the tablename of the tables to check
+
+
+   .. py:method:: send_tableExists(self, tableName)
+
+
+   .. py:method:: recv_tableExists(self)
+
+
+   .. py:method:: getTableDescriptorsByPattern(self, regex, includeSysTables)
+
+      Get table descriptors of tables that match the given pattern
+      @return the tableDescriptors of the matching table
+
+
+      :param - regex: The regular expression to match against
+      :param - includeSysTables: set to false if match only against userspace tables
+
+
+   .. py:method:: send_getTableDescriptorsByPattern(self, regex, includeSysTables)
+
+
+   .. py:method:: recv_getTableDescriptorsByPattern(self)
+
+
+   .. py:method:: getTableDescriptorsByNamespace(self, name)
+
+      Get table descriptors of tables in the given namespace
+      @return the tableDescriptors in the namespce
+
+
+      :param - name: The namesapce's name
+
+
+   .. py:method:: send_getTableDescriptorsByNamespace(self, name)
+
+
+   .. py:method:: recv_getTableDescriptorsByNamespace(self)
+
+
+   .. py:method:: getTableNamesByPattern(self, regex, includeSysTables)
+
+      Get table names of tables that match the given pattern
+      @return the table names of the matching table
+
+
+      :param - regex: The regular expression to match against
+      :param - includeSysTables: set to false if match only against userspace tables
+
+
+   .. py:method:: send_getTableNamesByPattern(self, regex, includeSysTables)
+
+
+   .. py:method:: recv_getTableNamesByPattern(self)
+
+
+   .. py:method:: getTableNamesByNamespace(self, name)
+
+      Get table names of tables in the given namespace
+      @return the table names of the matching table
+
+
+      :param - name: The namesapce's name
+
+
+   .. py:method:: send_getTableNamesByNamespace(self, name)
+
+
+   .. py:method:: recv_getTableNamesByNamespace(self)
+
+
+   .. py:method:: createTable(self, desc, splitKeys)
+
+      Creates a new table with an initial set of empty regions defined by the specified split keys.
+      The total number of regions created will be the number of split keys plus one. Synchronous
+      operation.
+
+
+      :param - desc: table descriptor for table
+      :param - splitKeys: rray of split keys for the initial regions of the table
+
+
+   .. py:method:: send_createTable(self, desc, splitKeys)
+
+
+   .. py:method:: recv_createTable(self)
+
+
+   .. py:method:: deleteTable(self, tableName)
+
+      Deletes a table. Synchronous operation.
+
+
+      :param - tableName: the tablename to delete
+
+
+   .. py:method:: send_deleteTable(self, tableName)
+
+
+   .. py:method:: recv_deleteTable(self)
+
+
+   .. py:method:: truncateTable(self, tableName, preserveSplits)
+
+      Truncate a table. Synchronous operation.
+
+
+      :param - tableName: the tablename to truncate
+      :param - preserveSplits: whether to  preserve previous splits
+
+
+   .. py:method:: send_truncateTable(self, tableName, preserveSplits)
+
+
+   .. py:method:: recv_truncateTable(self)
+
+
+   .. py:method:: enableTable(self, tableName)
+
+      Enalbe a table
+
+
+      :param - tableName: the tablename to enable
+
+
+   .. py:method:: send_enableTable(self, tableName)
+
+
+   .. py:method:: recv_enableTable(self)
+
+
+   .. py:method:: disableTable(self, tableName)
+
+      Disable a table
+
+
+      :param - tableName: the tablename to disable
+
+
+   .. py:method:: send_disableTable(self, tableName)
+
+
+   .. py:method:: recv_disableTable(self)
+
+
+   .. py:method:: isTableEnabled(self, tableName)
+
+      @return true if table is enabled, false if not
+
+
+      :param - tableName: the tablename to check
+
+
+   .. py:method:: send_isTableEnabled(self, tableName)
+
+
+   .. py:method:: recv_isTableEnabled(self)
+
+
+   .. py:method:: isTableDisabled(self, tableName)
+
+      @return true if table is disabled, false if not
+
+
+      :param - tableName: the tablename to check
+
+
+   .. py:method:: send_isTableDisabled(self, tableName)
+
+
+   .. py:method:: recv_isTableDisabled(self)
+
+
+   .. py:method:: isTableAvailable(self, tableName)
+
+      @return true if table is available, false if not
+
+
+      :param - tableName: the tablename to check
+
+
+   .. py:method:: send_isTableAvailable(self, tableName)
+
+
+   .. py:method:: recv_isTableAvailable(self)
+
+
+   .. py:method:: isTableAvailableWithSplit(self, tableName, splitKeys)
+
+       * Use this api to check if the table has been created with the specified number of splitkeys
+       * which was used while creating the given table. Note : If this api is used after a table's
+       * region gets splitted, the api may return false.
+       *
+       * @return true if table is available, false if not
+      *
+
+      :param - tableName: the tablename to check
+      :param - splitKeys: keys to check if the table has been created with all split keys
+
+
+   .. py:method:: send_isTableAvailableWithSplit(self, tableName, splitKeys)
+
+
+   .. py:method:: recv_isTableAvailableWithSplit(self)
+
+
+   .. py:method:: addColumnFamily(self, tableName, column)
+
+      Add a column family to an existing table. Synchronous operation.
+
+
+      :param - tableName: the tablename to add column family to
+      :param - column: column family descriptor of column family to be added
+
+
+   .. py:method:: send_addColumnFamily(self, tableName, column)
+
+
+   .. py:method:: recv_addColumnFamily(self)
+
+
+   .. py:method:: deleteColumnFamily(self, tableName, column)
+
+      Delete a column family from a table. Synchronous operation.
+
+
+      :param - tableName: the tablename to delete column family from
+      :param - column: name of column family to be deleted
+
+
+   .. py:method:: send_deleteColumnFamily(self, tableName, column)
+
+
+   .. py:method:: recv_deleteColumnFamily(self)
+
+
+   .. py:method:: modifyColumnFamily(self, tableName, column)
+
+      Modify an existing column family on a table. Synchronous operation.
+
+
+      :param - tableName: the tablename to modify column family
+      :param - column: column family descriptor of column family to be modified
+
+
+   .. py:method:: send_modifyColumnFamily(self, tableName, column)
+
+
+   .. py:method:: recv_modifyColumnFamily(self)
+
+
+   .. py:method:: modifyTable(self, desc)
+
+      Modify an existing table
+
+
+      :param - desc: the descriptor of the table to modify
+
+
+   .. py:method:: send_modifyTable(self, desc)
+
+
+   .. py:method:: recv_modifyTable(self)
+
+
+   .. py:method:: createNamespace(self, namespaceDesc)
+
+      Create a new namespace. Blocks until namespace has been successfully created or an exception is
+      thrown
+
+
+      :param - namespaceDesc: descriptor which describes the new namespace
+
+
+   .. py:method:: send_createNamespace(self, namespaceDesc)
+
+
+   .. py:method:: recv_createNamespace(self)
+
+
+   .. py:method:: modifyNamespace(self, namespaceDesc)
+
+      Modify an existing namespace.  Blocks until namespace has been successfully modified or an
+      exception is thrown
+
+
+      :param - namespaceDesc: descriptor which describes the new namespace
+
+
+   .. py:method:: send_modifyNamespace(self, namespaceDesc)
+
+
+   .. py:method:: recv_modifyNamespace(self)
+
+
+   .. py:method:: deleteNamespace(self, name)
+
+      Delete an existing namespace. Only empty namespaces (no tables) can be removed.
+      Blocks until namespace has been successfully deleted or an
+      exception is thrown.
+
+
+      :param - name: namespace name
+
+
+   .. py:method:: send_deleteNamespace(self, name)
+
+
+   .. py:method:: recv_deleteNamespace(self)
+
+
+   .. py:method:: getNamespaceDescriptor(self, name)
+
+      Get a namespace descriptor by name.
+      @retrun the descriptor
+
+
+      :param - name: name of namespace descriptor
+
+
+   .. py:method:: send_getNamespaceDescriptor(self, name)
+
+
+   .. py:method:: recv_getNamespaceDescriptor(self)
+
+
+   .. py:method:: listNamespaceDescriptors(self)
+
+      @return all namespaces
+
+
+
+
+   .. py:method:: send_listNamespaceDescriptors(self)
+
+
+   .. py:method:: recv_listNamespaceDescriptors(self)
+
+
+
+.. py:class:: Processor(handler)
+
+   Bases: :py:obj:`Iface`, :py:obj:`thrift.Thrift.TProcessor`
+
+   Base class for processor, which works on two streams.
+
+   .. py:method:: process(self, iprot, oprot)
+
+      Process a request.  The normal behvaior is to have the
+      processor invoke the correct handler and then it is the
+      server's responsibility to write the response to oprot.
+
+
+   .. py:method:: process_exists(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_existsAll(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_get(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_getMultiple(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_put(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_checkAndPut(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_putMultiple(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_deleteSingle(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_deleteMultiple(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_checkAndDelete(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_increment(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_append(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_openScanner(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_getScannerRows(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_closeScanner(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_mutateRow(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_getScannerResults(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_getRegionLocation(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_getAllRegionLocations(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_checkAndMutate(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_getTableDescriptor(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_getTableDescriptors(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_tableExists(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_getTableDescriptorsByPattern(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_getTableDescriptorsByNamespace(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_getTableNamesByPattern(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_getTableNamesByNamespace(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_createTable(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_deleteTable(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_truncateTable(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_enableTable(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_disableTable(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_isTableEnabled(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_isTableDisabled(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_isTableAvailable(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_isTableAvailableWithSplit(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_addColumnFamily(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_deleteColumnFamily(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_modifyColumnFamily(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_modifyTable(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_createNamespace(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_modifyNamespace(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_deleteNamespace(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_getNamespaceDescriptor(self, seqid, iprot, oprot)
+
+
+   .. py:method:: process_listNamespaceDescriptors(self, seqid, iprot, oprot)
+
+
+
+.. py:class:: exists_args(table=None, tget=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      the table to check on
+
+   .. attribute:: - tget
+
+      the TGet to check for
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: exists_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: existsAll_args(table=None, tgets=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      the table to check on
+
+   .. attribute:: - tgets
+
+      a list of TGets to check for
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: existsAll_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: get_args(table=None, tget=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      the table to get from
+
+   .. attribute:: - tget
+
+      the TGet to fetch
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: get_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getMultiple_args(table=None, tgets=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      the table to get from
+
+   .. attribute:: - tgets
+
+      a list of TGets to fetch, the Result list
+
+   will have the Results at corresponding positions
+   or null if there was an error
+
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: getMultiple_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: put_args(table=None, tput=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      the table to put data in
+
+   .. attribute:: - tput
+
+      the TPut to put
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: put_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: checkAndPut_args(table=None, row=None, family=None, qualifier=None, value=None, tput=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      to check in and put to
+
+   .. attribute:: - row
+
+      row to check
+
+   .. attribute:: - family
+
+      column family to check
+
+   .. attribute:: - qualifier
+
+      column qualifier to check
+
+   .. attribute:: - value
+
+      the expected value, if not provided the
+
+   check is for the non-existence of the
+   column in question
+    - tput: the TPut to put if the check succeeds
+
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None, None, None, None]
+
+   
+
+.. py:class:: checkAndPut_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: putMultiple_args(table=None, tputs=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      the table to put data in
+
+   .. attribute:: - tputs
+
+      a list of TPuts to commit
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: putMultiple_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: deleteSingle_args(table=None, tdelete=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      the table to delete from
+
+   .. attribute:: - tdelete
+
+      the TDelete to delete
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: deleteSingle_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: deleteMultiple_args(table=None, tdeletes=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      the table to delete from
+
+   .. attribute:: - tdeletes
+
+      list of TDeletes to delete
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: deleteMultiple_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: checkAndDelete_args(table=None, row=None, family=None, qualifier=None, value=None, tdelete=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      to check in and delete from
+
+   .. attribute:: - row
+
+      row to check
+
+   .. attribute:: - family
+
+      column family to check
+
+   .. attribute:: - qualifier
+
+      column qualifier to check
+
+   .. attribute:: - value
+
+      the expected value, if not provided the
+
+   check is for the non-existence of the
+   column in question
+    - tdelete: the TDelete to execute if the check succeeds
+
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None, None, None, None]
+
+   
+
+.. py:class:: checkAndDelete_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: increment_args(table=None, tincrement=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      the table to increment the value on
+
+   .. attribute:: - tincrement
+
+      the TIncrement to increment
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: increment_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: append_args(table=None, tappend=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      the table to append the value on
+
+   .. attribute:: - tappend
+
+      the TAppend to append
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: append_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: openScanner_args(table=None, tscan=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      the table to get the Scanner for
+
+   .. attribute:: - tscan
+
+      the scan object to get a Scanner for
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: openScanner_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getScannerRows_args(scannerId=None, numRows=1)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - scannerId
+
+      the Id of the Scanner to return rows from. This is an Id returned from the openScanner function.
+
+   .. attribute:: - numRows
+
+      number of rows to return
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: getScannerRows_result(success=None, io=None, ia=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. attribute:: - ia
+
+      if the scannerId is invalid
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: closeScanner_args(scannerId=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - scannerId
+
+      the Id of the Scanner to close *
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: closeScanner_result(io=None, ia=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. attribute:: - ia
+
+      if the scannerId is invalid
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: mutateRow_args(table=None, trowMutations=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      table to apply the mutations
+
+   .. attribute:: - trowMutations
+
+      mutations to apply
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: mutateRow_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getScannerResults_args(table=None, tscan=None, numRows=1)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      the table to get the Scanner for
+
+   .. attribute:: - tscan
+
+      the scan object to get a Scanner for
+
+   .. attribute:: - numRows
+
+      number of rows to return
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None]
+
+   
+
+.. py:class:: getScannerResults_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getRegionLocation_args(table=None, row=None, reload=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      
+
+   .. attribute:: - row
+
+      
+
+   .. attribute:: - reload
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None]
+
+   
+
+.. py:class:: getRegionLocation_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getAllRegionLocations_args(table=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getAllRegionLocations_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: checkAndMutate_args(table=None, row=None, family=None, qualifier=None, compareOp=None, value=None, rowMutations=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      to check in and delete from
+
+   .. attribute:: - row
+
+      row to check
+
+   .. attribute:: - family
+
+      column family to check
+
+   .. attribute:: - qualifier
+
+      column qualifier to check
+
+   .. attribute:: - compareOp
+
+      comparison to make on the value
+
+   .. attribute:: - value
+
+      the expected value to be compared against, if not provided the
+
+   check is for the non-existence of the column in question
+    - rowMutations: row mutations to execute if the value matches
+
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None, None, None, None, None]
+
+   
+
+.. py:class:: checkAndMutate_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getTableDescriptor_args(table=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - table
+
+      the tablename of the table to get tableDescriptor
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getTableDescriptor_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getTableDescriptors_args(tables=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - tables
+
+      the tablename list of the tables to get tableDescriptor
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getTableDescriptors_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: tableExists_args(tableName=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - tableName
+
+      the tablename of the tables to check
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: tableExists_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getTableDescriptorsByPattern_args(regex=None, includeSysTables=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - regex
+
+      The regular expression to match against
+
+   .. attribute:: - includeSysTables
+
+      set to false if match only against userspace tables
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: getTableDescriptorsByPattern_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getTableDescriptorsByNamespace_args(name=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - name
+
+      The namesapce's name
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getTableDescriptorsByNamespace_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getTableNamesByPattern_args(regex=None, includeSysTables=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - regex
+
+      The regular expression to match against
+
+   .. attribute:: - includeSysTables
+
+      set to false if match only against userspace tables
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: getTableNamesByPattern_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getTableNamesByNamespace_args(name=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - name
+
+      The namesapce's name
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getTableNamesByNamespace_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: createTable_args(desc=None, splitKeys=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - desc
+
+      table descriptor for table
+
+   .. attribute:: - splitKeys
+
+      rray of split keys for the initial regions of the table
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: createTable_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: deleteTable_args(tableName=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - tableName
+
+      the tablename to delete
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: deleteTable_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: truncateTable_args(tableName=None, preserveSplits=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - tableName
+
+      the tablename to truncate
+
+   .. attribute:: - preserveSplits
+
+      whether to  preserve previous splits
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: truncateTable_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: enableTable_args(tableName=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - tableName
+
+      the tablename to enable
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: enableTable_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: disableTable_args(tableName=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - tableName
+
+      the tablename to disable
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: disableTable_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: isTableEnabled_args(tableName=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - tableName
+
+      the tablename to check
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: isTableEnabled_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: isTableDisabled_args(tableName=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - tableName
+
+      the tablename to check
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: isTableDisabled_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: isTableAvailable_args(tableName=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - tableName
+
+      the tablename to check
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: isTableAvailable_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: isTableAvailableWithSplit_args(tableName=None, splitKeys=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - tableName
+
+      the tablename to check
+
+   .. attribute:: - splitKeys
+
+      keys to check if the table has been created with all split keys
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: isTableAvailableWithSplit_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: addColumnFamily_args(tableName=None, column=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - tableName
+
+      the tablename to add column family to
+
+   .. attribute:: - column
+
+      column family descriptor of column family to be added
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: addColumnFamily_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: deleteColumnFamily_args(tableName=None, column=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - tableName
+
+      the tablename to delete column family from
+
+   .. attribute:: - column
+
+      name of column family to be deleted
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: deleteColumnFamily_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: modifyColumnFamily_args(tableName=None, column=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - tableName
+
+      the tablename to modify column family
+
+   .. attribute:: - column
+
+      column family descriptor of column family to be modified
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:class:: modifyColumnFamily_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: modifyTable_args(desc=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - desc
+
+      the descriptor of the table to modify
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: modifyTable_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: createNamespace_args(namespaceDesc=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - namespaceDesc
+
+      descriptor which describes the new namespace
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: createNamespace_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: modifyNamespace_args(namespaceDesc=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - namespaceDesc
+
+      descriptor which describes the new namespace
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: modifyNamespace_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: deleteNamespace_args(name=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - name
+
+      namespace name
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: deleteNamespace_result(io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getNamespaceDescriptor_args(name=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - name
+
+      name of namespace descriptor
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: getNamespaceDescriptor_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:class:: listNamespaceDescriptors_args
+
+   Bases: :py:obj:`object`
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = []
+
+   
+
+.. py:class:: listNamespaceDescriptors_result(success=None, io=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - success
+
+      
+
+   .. attribute:: - io
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+

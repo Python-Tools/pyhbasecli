@@ -17,6 +17,7 @@
 import json
 import binascii
 import datetime
+from enum import Enum
 from typing import Callable, Dict, List, Mapping, Sequence, Optional, Any, List, Dict, Tuple, Union, Tuple
 from thrift.protocol import TBinaryProtocol
 from thrift.transport import THttpClient
@@ -46,7 +47,10 @@ from .hbase.ttypes import (
     TConsistency,
     TDeleteType,
     TReadType,
-    TColumnIncrement
+    TColumnIncrement,
+    TCompareOp,
+    TMutation,
+    TRowMutations
 )
 
 
@@ -338,8 +342,226 @@ def _createClosestRowAfter(row: bytes) -> bytes:
     return bytes(array)
 
 
-class HBaseCli:
+class MutationStatus(Enum):
+    PREPAREING = 1
+    SUBMIT = 2
+    CHECK_FAILED = 3
+    ERROR = 4
+    SUCCESS = 5
 
+
+class ResubmitException(Exception):
+    pass
+
+
+class MutationSession:
+    """Mutation会话类"""
+    def __init__(self,
+                 cli: 'HBaseCli',
+                 table: str, row: str, *,
+                 ns: Optional[str] = None,
+                 check_row: Optional[str] = None,
+                 check_column_full_name: Optional[str] = None,
+                 check_compare_op: Optional[str] = None,
+                 check_column_value: Optional[bytes] = None) -> None:
+        """创建一个mutation会话.
+
+        Args:
+            cli (HBaseCli): 客户端对象.
+            table (str): 指定会话指向的表,表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+            row (str): 指向会话指向的行
+            ns (Optional[str], optional): 命名空间. Defaults to None.
+            check_row (Optional[str], optional): 待监测行名
+            check_column_full_name (Optional[str], optional): 待检查的列,以`列簇:列名`形式表示,如果有指定`column_value`则检查指定列的值是否和`column_value`指定的相同,否则检查指定列是否存在.
+            check_column_value (Optional[bytes], optional): 指定检查列的值与之执行对比操作的值.
+            check_compare_op (Optional[str], optional): 指定对比操作,可选的有LESS,LESS_OR_EQUAL,EQUAL,NOT_EQUAL,GREATER_OR_EQUAL,GREATER,NO_OP. Defaults to None.
+
+        Raises:
+            AttributeError: 表名格式不合法
+        """
+
+        if ns is not None:
+            tableNameInbytes = f"{ns}:{table}".encode("utf8")
+        else:
+            tabelinfo = table.split(":")
+            if len(tabelinfo) == 2:
+                tableNameInbytes = table.encode("utf8")
+            else:
+                raise AttributeError(f"parameter table syntax error: {table}")
+        self.cli = cli
+        self.table = tableNameInbytes
+        self.row = row.encode("utf8")
+        self.check_row = check_row.encode("utf-8") if check_row else None
+        if check_column_full_name:
+            check_family, check_col = check_column_full_name.split(":")
+            self.check_family: Optional[bytes] = check_family.encode("utf-8")
+            self.check_col: Optional[bytes] = check_col.encode("utf-8")
+        else:
+            self.check_family = None
+            self.check_col = None
+        self.check_compare_op = TCompareOp._NAMES_TO_VALUES.get(check_compare_op) if check_compare_op else None
+        self.check_column_value = check_column_value
+        self.mutations: List[TMutation] = []
+        self._mutation_status = MutationStatus.PREPAREING
+
+    def __enter__(self) -> 'MutationSession':
+        return self
+
+    def __exit__(self, exc_type: Any, exc_value: Any, traceback: Any) -> None:
+        self.submit()
+        return None
+
+    @property
+    def status(self) -> MutationStatus:
+        """mutation会话的状态."""
+        return self._mutation_status
+
+    def submit(self) -> bool:
+        """提交mutation会话."""
+        if self._mutation_status != MutationStatus.PREPAREING:
+            raise ResubmitException("can not resubmit")
+        trm = TRowMutations(row=self.row, mutations=self.mutations)
+        self._mutation_status = MutationStatus.SUBMIT
+        try:
+            if all([self.check_row, self.check_family, self.check_col, self.check_compare_op]):
+                r = self.cli.client.checkAndMutate(
+                    table=self.table,
+                    row=self.check_row,
+                    family=self.check_family,
+                    qualifier=self.check_col,
+                    compareOp=self.check_compare_op,
+                    value=self.check_column_value,
+                    rowMutations=trm
+                )
+                if r:
+                    self._mutation_status = MutationStatus.SUCCESS
+                else:
+                    self._mutation_status = MutationStatus.CHECK_FAILED
+                return r
+            else:
+                self.cli.client.mutateRow(table=self.table, trowMutations=trm)
+                self._mutation_status = MutationStatus.SUCCESS
+                return True
+        except Exception as e:
+            self._mutation_status = MutationStatus.ERROR
+            raise e
+
+    def add_put(self, kvs: List[ColumnsValue], *, row: Optional[str] = None, timestamp: Optional[datetime.datetime] = None,
+                attributes: Optional[Dict[str, bytes]] = None,
+                durability: Optional[str] = None,
+                cellVisibility: Optional[str] = None,) -> 'MutationSession':
+        """添加修改操作
+
+        Args:
+            kvs (List[ColumnsValue]): kvs (List[ColumnsValue]): 传入的值序列
+            row (Optional[str], optional): 行名,如果不填则使用默认行. Defaults to None.
+            timestamp (Optional[datetime.datetime], optional): 指定时间戳. Defaults to None.
+            attributes (Optional[Dict[str, bytes]], optional): 指定属性. Defaults to None.
+            durability (Optional[str], optional): 指定耐久方式设置,可选的有USE_DEFAULT,SKIP_WAL,ASYNC_WAL,SYNC_WAL,FSYNC_WAL.Defaults to None.
+            cellVisibility (Optional[str], optional): cell的可视性设置. Defaults to None.
+
+        Returns:
+            MutationSession: _description_
+        """
+        if self._mutation_status != MutationStatus.PREPAREING:
+            raise ResubmitException("can not add mutation to a submited session")
+        _timestamp = None
+        if timestamp:
+            _timestamp = int(timestamp.timestamp() * 1000)
+        _attributes = None
+        if attributes:
+            _attributes = {k.encode("utf-8"): v for k, v in attributes.items()}
+        _durability = None
+        if durability is not None:
+            _durability = TDurability._NAMES_TO_VALUES.get(durability)
+        _cellVisibility = None
+        if cellVisibility:
+            _cellVisibility = TCellVisibility(expression=cellVisibility)
+
+        if row is None:
+            m = TMutation(
+                put=TPut(
+                    row=self.row,
+                    columnValues=[kv.as_TColumnValue() for kv in kvs],
+                    timestamp=_timestamp,
+                    attributes=_attributes,
+                    durability=_durability,
+                    cellVisibility=_cellVisibility
+                )
+            )
+        else:
+            m = TMutation(
+                put=TPut(
+                    row=row.encode("utf8"),
+                    columnValues=[kv.as_TColumnValue() for kv in kvs],
+                    timestamp=_timestamp,
+                    attributes=_attributes,
+                    durability=_durability,
+                    cellVisibility=_cellVisibility
+                )
+            )
+        self.mutations.append(m)
+        return self
+
+    def add_delete(self, *,
+                   row: Optional[str] = None,
+                   columns: Optional[Sequence[str]] = None,
+                   timestamp: Optional[datetime.datetime] = None,
+                   deleteType: Optional[str] = None,
+                   attributes: Optional[Dict[str, bytes]] = None,
+                   durability: Optional[str] = None,) -> 'MutationSession':
+        """增加删除行为.
+
+        Args:
+            row (Optional[str], optional): 指定要删除数据的行,如果不指定则使用默认行. Defaults to None.
+            columns (Optional[Sequence[str]], optional): 指定要删除的列信息,以"列簇:列名"的形式表达. Defaults to None.
+            timestamp (Optional[datetime.datetime], optional): 指定时间戳. Defaults to None.
+            deleteType (Optional[str], optional): 指定删除类型,可选为DELETE_COLUMN-删除指定列,DELETE_COLUMNS-删除所有列,DELETE_FAMILY-删除指定列簇,DELETE_FAMILY_VERSION-删除指定列簇的指定版本. Defaults to DELETE_COLUMNS.
+            attributes (Optional[Dict[str, bytes]], optional): 指定属性. Defaults to None.
+            durability (Optional[str], optional): 指定耐久方式设置,可选的有USE_DEFAULT,SKIP_WAL,ASYNC_WAL,SYNC_WAL,FSYNC_WAL.Defaults to None.
+
+        Returns:
+            MutationSession: _description_
+        """
+        if self._mutation_status != MutationStatus.PREPAREING:
+            raise ResubmitException("can not add mutation to a submited session")
+        _columns = None
+        if columns:
+            _columns = [TColumn(family=c.split(":")[0], qualifier=c.split(":")[1]) if len(c.split(":")) == 2 else TColumn(family=c) for c in columns]
+        _timestamp = None
+        if timestamp:
+            _timestamp = int(timestamp.timestamp() * 1000)
+        _deleteType = 1
+        if deleteType:
+            _deleteType = TDeleteType._NAMES_TO_VALUES.get(deleteType, 1)
+        _attributes = None
+        if attributes:
+            _attributes = {k.encode("utf-8"): v for k, v in attributes.items()}
+        _durability = None
+        if durability:
+            _durability = TDurability._NAMES_TO_VALUES.get(durability)
+        if row is None:
+            m = TMutation(deleteSingle=TDelete(
+                row=self.row,
+                columns=_columns,
+                timestamp=_timestamp,
+                deleteType=_deleteType,
+                attributes=_attributes,
+                durability=_durability))
+        else:
+            m = TMutation(deleteSingle=TDelete(
+                row=row.encode("utf8"),
+                columns=_columns,
+                timestamp=_timestamp,
+                deleteType=_deleteType,
+                attributes=_attributes,
+                durability=_durability))
+        self.mutations.append(m)
+        return self
+
+
+class HBaseCli:
+    """hbase客户端类"""
     def __init__(self, url: str, *, headers: Optional[Mapping[str, str]] = None) -> None:
         """连接hbase.
 
@@ -1048,6 +1270,10 @@ class HBaseCli:
     # 写操作
     def put(self, table: str, row: str, kvs: List[ColumnsValue], *,
             ns: Optional[str] = None,
+            timestamp: Optional[datetime.datetime] = None,
+            attributes: Optional[Dict[str, bytes]] = None,
+            durability: Optional[str] = None,
+            cellVisibility: Optional[str] = None,
             check_row: Optional[str] = None,
             check_column_full_name: Optional[str] = None,
             check_column_value: Optional[bytes] = None) -> bool:
@@ -1060,6 +1286,10 @@ class HBaseCli:
             row (str): 行名
             kvs (List[ColumnsValue]): 传入的值序列
             ns(Optional[str], optional): 命名空间名称
+            timestamp (Optional[datetime.datetime], optional): 指定时间戳. Defaults to None.
+            attributes (Optional[Dict[str, bytes]], optional): 指定属性. Defaults to None.
+            durability (Optional[str], optional): 指定耐久方式设置,可选的有USE_DEFAULT,SKIP_WAL,ASYNC_WAL,SYNC_WAL,FSYNC_WAL.Defaults to None.
+            cellVisibility (Optional[str], optional): cell的可视性设置. Defaults to None.
             check_row (Optional[str], optional): 待监测行名
             check_column_full_name (Optional[str], optional): 待检查的列,以`列簇:列名`形式表示,如果有指定`column_value`则检查指定列的值是否和`column_value`指定的相同,否则检查指定列是否存在.
             check_column_value (Optional[bytes], optional): 指定检查列应该满足的值.
@@ -1077,6 +1307,19 @@ class HBaseCli:
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
         row_bytes = row.encode("utf8")
+        _timestamp = None
+        if timestamp:
+            _timestamp = int(timestamp.timestamp() * 1000)
+        _attributes = None
+        if attributes:
+            _attributes = {k.encode("utf-8"): v for k, v in attributes.items()}
+        _durability = None
+        if durability is not None:
+            _durability = TDurability._NAMES_TO_VALUES.get(durability)
+        _cellVisibility = None
+        if cellVisibility:
+            _cellVisibility = TCellVisibility(expression=cellVisibility)
+
         if check_row and check_column_full_name:
             check_row_bytes = check_row.encode("utf8")
             family, cloumn = check_column_full_name.split(":")
@@ -1086,11 +1329,23 @@ class HBaseCli:
                 family=family.encode("utf8"),
                 qualifier=cloumn.encode("utf8"),
                 value=check_column_value,
-                tput=TPut(row=row_bytes, columnValues=[kv.as_TColumnValue() for kv in kvs]))
+                tput=TPut(
+                    row=row_bytes,
+                    columnValues=[kv.as_TColumnValue() for kv in kvs],
+                    timestamp=_timestamp,
+                    attributes=_attributes,
+                    durability=_durability,
+                    cellVisibility=_cellVisibility))
         else:
             self.client.put(
                 table=tableNameInbytes,
-                tput=TPut(row=row_bytes, columnValues=[kv.as_TColumnValue() for kv in kvs]))
+                tput=TPut(
+                    row=row_bytes,
+                    columnValues=[kv.as_TColumnValue() for kv in kvs],
+                    timestamp=_timestamp,
+                    attributes=_attributes,
+                    durability=_durability,
+                    cellVisibility=_cellVisibility))
             return True
 
     def delete(self, table: str, row: str, *,
@@ -1182,12 +1437,12 @@ class HBaseCli:
             )
             return True
 
-    def batch_put(self, table: str, rkvs: Dict[str, List[ColumnsValue]], *, ns: Optional[str] = None) -> None:
+    def batch_put(self, table: str, rkvs: Dict[str, Union[List[ColumnsValue], Dict[str, Union[datetime.datetime, Dict[str, bytes], str, List[ColumnsValue]]]]], *, ns: Optional[str] = None) -> None:
         """批量插入
 
         Args:
             table(str): 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
-            rkvs (Dict[str, List[ColumnsValue]]): 行名与传入的值序列构成的字典
+            rkvs ( Dict[str, Union[List[ColumnsValue], Dict[str, Union[datetime.datetime, Dict[str, bytes], str, List[ColumnsValue]]]]]): 行名与传入的值序列构成的字典或者行名与参数字典组成的字典,参数范围参照put
             ns(Optional[str], optional): 命名空间名称
 
         Raises:
@@ -1202,8 +1457,38 @@ class HBaseCli:
                 tableNameInbytes = table.encode("utf8")
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
+        puts = []
+        for row, kvs in rkvs.items():
+            if isinstance(kvs, list):
+                p = TPut(row=row.encode("utf-8"), columnValues=[kv.as_TColumnValue() for kv in kvs])
+            else:
+                _timestamp = None
+                timestamp = kvs.get("timestamp")
+                if timestamp is not None and isinstance(timestamp, datetime.datetime):
+                    _timestamp = int(timestamp.timestamp() * 1000)
+                _attributes = None
+                attributes = kvs.get("attributes")
+                if attributes is not None and isinstance(attributes, dict):
+                    _attributes = {k.encode("utf-8"): v for k, v in attributes.items()}
+                _durability = None
+                durability = kvs.get("durability")
+                if durability is not None and isinstance(durability, str):
+                    _durability = TDurability._NAMES_TO_VALUES.get(durability)
+                _cellVisibility = None
+                cellVisibility = kvs.get("cellVisibility")
+                if cellVisibility is not None and isinstance(cellVisibility, str):
+                    _cellVisibility = TCellVisibility(expression=cellVisibility)
 
-        puts = [TPut(row=row.encode("utf-8"), columnValues=[kv.as_TColumnValue() for kv in kvs]) for row, kvs in rkvs.items()]
+                _kvs = kvs.get("kvs")
+                if _kvs is None or not isinstance(_kvs, list):
+                    raise AttributeError(f"not set kvs")
+                p = TPut(row=row.encode("utf-8"),
+                         columnValues=[kv.as_TColumnValue() for kv in _kvs],
+                         timestamp=_timestamp,
+                         attributes=_attributes,
+                         durability=_durability,
+                         cellVisibility=_cellVisibility)
+            puts.append(p)
         self.client.putMultiple(table=tableNameInbytes, tputs=puts)
 
     def batch_delete(self, table: str, rows: List[str], *,
@@ -1414,6 +1699,40 @@ class HBaseCli:
             value = NumberDecoder(tcv.value)
             res[col_name] = value
         return res
+
+    def mutation_session(self, table: str, row: str, *,
+                         ns: Optional[str] = None,
+                         check_row: Optional[str] = None,
+                         check_column_full_name: Optional[str] = None,
+                         check_compare_op: Optional[str] = None,
+                         check_column_value: Optional[bytes] = None) -> MutationSession:
+        """创建一个mutation会话.
+
+        Args:
+            table (str): 指定会话指向的表,表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+            row (str): 指向会话指向的行
+            ns (Optional[str], optional): 命名空间. Defaults to None.
+            check_row (Optional[str], optional): 待监测行名
+            check_column_full_name (Optional[str], optional): 待检查的列,以`列簇:列名`形式表示,如果有指定`column_value`则检查指定列的值是否和`column_value`指定的相同,否则检查指定列是否存在.
+            check_column_value (Optional[bytes], optional): 指定检查列的值与之执行对比操作的值.
+            check_compare_op (Optional[str], optional): 指定对比操作,可选的有LESS,LESS_OR_EQUAL,EQUAL,NOT_EQUAL,GREATER_OR_EQUAL,GREATER,NO_OP. Defaults to None.
+
+        Raises:
+            AttributeError: 表名格式不合法
+
+        Returns:
+            MutationSession: mutation会话对象
+        """
+        ms = MutationSession(
+            cli=self,
+            table=table,
+            row=row,
+            ns=ns,
+            check_row=check_row,
+            check_column_full_name=check_column_full_name,
+            check_compare_op=check_compare_op,
+            check_column_value=check_column_value)
+        return ms
 
     # 读操作
     def exists(self, table: str, row: str, *,

@@ -1,0 +1,1050 @@
+:py:mod:`pyhbasecli`
+====================
+
+.. py:module:: pyhbasecli
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   hbase/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   HBase/index.rst
+
+
+Package Contents
+----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyhbasecli.ColumnsValue
+   pyhbasecli.HBaseCli
+   pyhbasecli.MutationSession
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   pyhbasecli.newTColumnValue
+   pyhbasecli.StrEncoder
+   pyhbasecli.StrDecoder
+   pyhbasecli.JsonEncoder
+   pyhbasecli.JsonDecoder
+   pyhbasecli.NumberDecoder
+
+
+
+.. py:function:: newTColumnValue(column: str, value_bytes: bytes, *, family: Optional[str] = None, timestamp: Optional[datetime.datetime] = None, tags: Optional[str] = None, type_: Optional[str] = None) -> pyhbasecli.hbase.ttypes.TColumnValue
+
+   创建一个可用于代理的TColumnValue对象.
+
+   :param column: 列名,列名中如果是"family:column"的形式即为列全名,即已经指定了列簇则可以不填family参数
+   :type column: str
+   :param family: 列簇名
+   :type family: Optional[str]
+   :param value_bytes: 列的值
+   :type value_bytes: bytes
+   :param timestamp: 时间. Defaults to None.
+   :type timestamp: Optional[datetime.datetime], optional
+   :param tags: 标签. Defaults to None.
+   :type tags: Optional[str], optional
+   :param type_: type值. Defaults to None.
+   :type type_: Optional[str], optional
+
+   :raises AttributeError: 列名格式不合法
+
+   :returns: 列结果对象
+   :rtype: TColumnValue
+
+
+.. py:class:: ColumnsValue(*, encoder: Optional[Callable[[Any, Optional[str]], bytes]] = None, decoder: Optional[Callable[[bytes, Optional[bytes]], Any]] = None)
+
+   TColumnValue的代理类.
+
+   .. py:attribute:: __slots__
+      :annotation: = ['instance', '_encoder', '_decoder']
+
+      
+
+   .. py:attribute:: instance
+      :annotation: :Optional[pyhbasecli.hbase.ttypes.TColumnValue]
+
+      
+
+   .. py:attribute:: _encoder
+      :annotation: :Optional[Callable[[Any, Optional[str]], bytes]]
+
+      
+
+   .. py:attribute:: _decoder
+      :annotation: :Optional[Callable[[bytes, Optional[bytes]], Any]]
+
+      
+
+   .. py:method:: __getattr__(self, attr: str) -> Any
+
+
+   .. py:method:: __setattr__(self, attr: str, value: Any) -> Any
+
+      Implement setattr(self, name, value).
+
+
+   .. py:method:: from_value(clz, family: str, column: str, value: Any, *, encoder: Callable[[Any, Optional[str]], bytes], timestamp: Optional[datetime.datetime] = None, tags: Optional[str] = None, type_: Optional[str] = None) -> ColumnsValue
+      :classmethod:
+
+
+   .. py:method:: regist_decoder(self, decoder: Callable[[bytes, Optional[bytes]], Any]) -> None
+
+      为代理对象注册解码器.
+
+      :param decoder: 将bytes编码为值的函数,可选项str会在调用时传入tags的值,方便一些场景根据tag判断编码方法
+      :type decoder: Callable[[bytes, Optional[bytes]], Any]
+
+
+   .. py:method:: regist_encoder(self, encoder: Callable[[Any, Optional[str]], bytes]) -> None
+
+      为代理对象注册编码器.
+
+      :param encoder: 将值编码为bytes的函数,可选项str会在调用时传入tags的值,方便一些场景根据tag判断编码方法
+      :type encoder: Callable[[Any, Optional[str]], bytes]
+
+
+   .. py:method:: initialize(self, instance: pyhbasecli.hbase.ttypes.TColumnValue) -> None
+
+      将被代理的实例注册到代理上.
+
+
+   .. py:method:: initialize_from_value(self, family: str, column: str, value: Any, *, timestamp: Optional[datetime.datetime] = None, tags: Optional[str] = None, type_: Optional[str] = None) -> None
+
+      创建一个新的TColumnValue对象并使用本对象进行代理.
+
+      :param column: 列名,列名中如果是"family:column"的形式即为列全名,即已经指定了列簇则可以不填family参数
+      :type column: str
+      :param family: 列簇名
+      :type family: Optional[str]
+      :param value_bytes: 列的值
+      :type value_bytes: bytes
+      :param timestamp: 时间. Defaults to None.
+      :type timestamp: Optional[datetime.datetime], optional
+      :param tags: 标签. Defaults to None.
+      :type tags: Optional[str], optional
+      :param type_: type值. Defaults to None.
+      :type type_: Optional[str], optional
+
+
+   .. py:method:: info(self) -> Dict[str, Union[int, str, bytes]]
+
+      获取ColumnsValue的信息字典.
+
+      该信息字典可以被`newTColumnValue`函数用于创建一个TColumnValue.
+
+      :returns: 信息字典
+      :rtype: Dict[str, Union[int, str, bytes]]
+
+
+   .. py:method:: values(self) -> Tuple[str, Any]
+
+      获取python可以直接处理的键值对.
+
+      :returns: python可以直接处理的键值对,键为列全名,值为列的值.
+      :rtype: Tuple[str, Any]
+
+
+   .. py:method:: as_TColumnValue(self) -> pyhbasecli.hbase.ttypes.TColumnValue
+
+      提取代理的TColumnValue对象.
+
+      :returns: 代理对象内代理的TColumnValue对象
+      :rtype: TColumnValue
+
+
+
+.. py:class:: HBaseCli(url: str, *, headers: Optional[Mapping[str, str]] = None)
+
+   .. py:method:: open(self) -> None
+
+
+   .. py:method:: close(self) -> None
+
+
+   .. py:method:: __enter__(self) -> HBaseCli
+
+
+   .. py:method:: __exit__(self, exc_type: Any, exc_value: Any, traceback: Any) -> None
+
+
+   .. py:method:: create_namespace(self, ns: str, **configs: str) -> None
+
+      创建命名空间.
+
+      :param ns: 命名空间名称
+      :type ns: string
+
+
+   .. py:method:: delete_namespace(self, ns: str) -> None
+
+      删除命名空间.
+
+      :param ns: 命名空间名
+      :type ns: str
+
+
+   .. py:method:: desc_namespace(self, ns: str) -> Dict[str, str]
+
+      查看指定命名空间的信息.
+
+      :param ns: 命名空间名
+      :type ns: str
+
+      :returns: 命名空间信息
+      :rtype: Dict[str, str]
+
+
+   .. py:method:: show_namespaces(self) -> List[Dict[str, str]]
+
+      列出已有的命名空间.
+
+      :returns: 命名空间列表
+      :rtype: List[Dict[str, str]]
+
+
+   .. py:method:: show_tables(self, ns: str) -> List[Dict[str, str]]
+
+      查看指定namespace下的表信息.
+
+      :param ns: 命名空间名称
+      :type ns: str
+
+      :returns: _description_
+      :rtype: List[Dict[str, str]]
+
+
+   .. py:method:: create_table(self, table: str, families: List[Dict[str, Any]], *, ns: Optional[str] = None, attributes: Optional[Dict[str, bytes]] = None, durability: Optional[str] = None, splitKeys: Optional[str] = None) -> None
+
+      创建表.
+
+      必须要先创建namespace.
+
+      :param table: 表名,表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: string
+      :param families: 列簇信息字典
+      :type families: List[Dict[str, Any]]
+      :param ns: 命名空间名称
+      :type ns: Optional[str]
+      :param attributes: 表属性设置
+      :type attributes: Optional[Dict[str, bytes]]
+      :param durability: 表耐久方式设置,可选的有USE_DEFAULT,SKIP_WAL,ASYNC_WAL,SYNC_WAL,FSYNC_WAL
+      :type durability: Optional[str]
+      :param splitKeys: 表初始区域键过滤设置
+      :type splitKeys: Optional[str]
+
+      :raises AttributeError: 表名格式不合法
+
+
+   .. py:method:: table_exists(self, table: str, *, ns: Optional[str] = None) -> bool
+
+      检查表是否存在
+
+      :param table: 表名,表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param ns: 命名空间名称
+      :type ns: Optional[str], optional
+
+      :raises AttributeError: 表名格式不合法
+
+      :returns: 是否存在
+      :rtype: bool
+
+
+   .. py:method:: desc_table(self, table: str, *, ns: Optional[str] = None) -> Dict[str, str]
+
+      查看指定表的基本信息.
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param ns: 命名空间名称
+      :type ns: Optional[str], optional
+
+      :raises AttributeError: 表名格式不合法
+
+      :returns: 描述表基础信息
+      :rtype: Dict[str, str]
+
+
+   .. py:method:: show_families(self, table: str, *, ns: Optional[str] = None) -> List[Dict[str, Any]]
+
+      查看指定表中包含的列簇信息.
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param ns: 命名空间名称
+      :type ns: Optional[str], optional
+
+      :raises AttributeError: 表名格式不合法
+
+      :returns: 列簇信息
+      :rtype: List[Dict[str, Any]]
+
+
+   .. py:method:: delete_table(self, table: str, *, ns: Optional[str] = None) -> None
+
+      删除表.
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param ns: 命名空间名称
+      :type ns: Optional[str], optional
+
+      :raises AttributeError: 表名格式不合法
+
+
+   .. py:method:: truncate_table(self, table: str, *, ns: Optional[str] = None, preserveSplits: bool = False) -> None
+
+      清空表.
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param ns: 命名空间名称
+      :type ns: Optional[str], optional
+      :param preserveSplits: 是否保留以前的拆分,默认False
+      :type preserveSplits: bool
+
+      :raises AttributeError: 表名格式不合法
+
+
+   .. py:method:: enable_table(self, table: str, *, ns: Optional[str] = None) -> None
+
+      激活表.
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param ns: 命名空间名称
+      :type ns: Optional[str], optional
+
+      :raises AttributeError: 表名格式不合法
+
+
+   .. py:method:: disable_table(self, table: str, *, ns: Optional[str] = None) -> None
+
+      取消激活表.
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param ns: 命名空间名称
+      :type ns: Optional[str], optional
+
+      :raises AttributeError: 表名格式不合法
+
+
+   .. py:method:: is_table_enabled(self, table: str, *, ns: Optional[str] = None) -> bool
+
+      确认表是否已经激活.
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param ns: 命名空间名称
+      :type ns: Optional[str], optional
+
+      :raises AttributeError: 表名格式不合法
+
+      :returns: 是否已激活
+      :rtype: bool
+
+
+   .. py:method:: is_table_disabled(self, table: str, *, ns: Optional[str] = None) -> bool
+
+      确认表是否已经取消激活.
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param ns: 命名空间名称
+      :type ns: Optional[str], optional
+
+      :raises AttributeError: 表名格式不合法
+
+      :returns: 是否已取消激活
+      :rtype: bool
+
+
+   .. py:method:: is_table_available(self, table: str, *, ns: Optional[str] = None) -> bool
+
+      确认表是否可用.
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param ns: 命名空间名称
+      :type ns: Optional[str], optional
+
+      :raises AttributeError: 表名格式不合法
+
+      :returns: 是否可用
+      :rtype: bool
+
+
+   .. py:method:: create_family(self, family: str, table: str, *, ns: Optional[str] = None, attributes: Optional[Dict[str, bytes]] = None, configuration: Optional[Dict[str, str]] = None, blockSize: Optional[int] = None, bloomnFilterType: Optional[str] = None, compressionType: Optional[str] = None, dfsReplication: Optional[int] = None, dataBlockEncoding: Optional[str] = None, keepDeletedCells: Optional[str] = None, maxVersions: Optional[int] = None, minVersions: Optional[int] = None, scope: Optional[int] = None, timeToLive: Optional[int] = None, blockCacheEnabled: Optional[bool] = None, cacheBloomsOnWrite: Optional[bool] = None, cacheDataOnWrite: Optional[bool] = None, cacheIndexesOnWrite: Optional[bool] = None, compressTags: Optional[bool] = None, evictBlocksOnClose: Optional[bool] = None, inMemory: Optional[bool] = None) -> None
+
+      创建列簇.
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param family: 列簇名
+      :type family: str
+      :param ns: 命名空间名称
+      :type ns: Optional[str], optional
+      :param attributes: 列簇属性设置. Defaults to None.
+      :type attributes: Optional[Dict[str, bytes]], optional
+      :param configuration: 列簇设置项. Defaults to None.
+      :type configuration: Optional[Dict[str, str]], optional
+      :param blockSize: 块大小设置. Defaults to None.
+      :type blockSize: Optional[int], optional
+      :param bloomnFilterType: 布隆过滤器类型.可选NONE,ROW,ROWCOL,ROWPREFIX_FIXED_LENGTH
+      :type bloomnFilterType: str, optional
+      :param compressionType: 存储压缩类型.可选LZO,GZ,NONE,SNAPPY,LZ4,BZIP2,ZSTD
+      :type compressionType: str, optional
+      :param dfsReplication: dfs复制类型. Defaults to None.
+      :type dfsReplication: Optional[int], optional
+      :param dataBlockEncoding: 数据块编码类型. 可选NONE,PREFIX,DIFF,FAST_DIFF,ROW_INDEX_V1
+      :type dataBlockEncoding: str, optional
+      :param keepDeletedCells: 删除cell策略类型. 可选FALSE,TRUE,TTL
+      :type keepDeletedCells: str, optional
+      :param maxVersions: 数据最大版本. Defaults to None.
+      :type maxVersions: Optional[int], optional
+      :param minVersions: 数据最小版本. Defaults to None.
+      :type minVersions: Optional[int], optional
+      :param scope: 范围. Defaults to None.
+      :type scope: Optional[int], optional
+      :param timeToLive: 数据过期时间. Defaults to None.
+      :type timeToLive: Optional[int], optional
+      :param blockCacheEnabled: 是否开启块缓存. Defaults to False.
+      :type blockCacheEnabled: bool, optional
+      :param cacheBloomsOnWrite: 是否在写入时缓存布隆过滤器的结果. Defaults to False.
+      :type cacheBloomsOnWrite: bool, optional
+      :param cacheDataOnWrite: 是否在写入数据时缓存数据. Defaults to False.
+      :type cacheDataOnWrite: bool, optional
+      :param cacheIndexesOnWrite: 是否在写入数据时缓存index. Defaults to False.
+      :type cacheIndexesOnWrite: bool, optional
+      :param compressTags: 是否压缩tag. Defaults to False.
+      :type compressTags: bool, optional
+      :param evictBlocksOnClose: 是否关闭时驱逐块. Defaults to False.
+      :type evictBlocksOnClose: bool, optional
+      :param inMemory: 是否保存在内存中. Defaults to False.
+      :type inMemory: bool, optional
+
+      :raises AttributeError: 表名格式不合法
+
+
+   .. py:method:: delete_family(self, family: str, table: str, *, ns: Optional[str] = None) -> None
+
+      删除指定列簇.
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param family: 列簇名
+      :type family: str
+      :param ns: 命名空间名称
+      :type ns: Optional[str], optional
+
+      :raises AttributeError: _description_
+
+
+   .. py:method:: modify_family(self, family: str, table: str, *, ns: Optional[str] = None, attributes: Optional[Dict[str, bytes]] = None, configuration: Optional[Dict[str, str]] = None, blockSize: Optional[int] = None, bloomnFilterType: Optional[str] = None, compressionType: Optional[str] = None, dfsReplication: Optional[int] = None, dataBlockEncoding: Optional[str] = None, keepDeletedCells: Optional[str] = None, maxVersions: Optional[int] = None, minVersions: Optional[int] = None, scope: Optional[int] = None, timeToLive: Optional[int] = None, blockCacheEnabled: Optional[bool] = None, cacheBloomsOnWrite: Optional[bool] = None, cacheDataOnWrite: Optional[bool] = None, cacheIndexesOnWrite: Optional[bool] = None, compressTags: Optional[bool] = None, evictBlocksOnClose: Optional[bool] = None, inMemory: Optional[bool] = None) -> None
+
+      修改已存在列簇.
+
+      不和创建列簇合并是因为担心会有误操作.
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param family: 列簇名
+      :type family: str
+      :param ns: 命名空间名称
+      :type ns: Optional[str], optional
+      :param attributes: 列簇属性设置. Defaults to None.
+      :type attributes: Optional[Dict[str, bytes]], optional
+      :param configuration: 列簇设置项. Defaults to None.
+      :type configuration: Optional[Dict[str, str]], optional
+      :param blockSize: 块大小设置. Defaults to None.
+      :type blockSize: Optional[int], optional
+      :param bloomnFilterType: 布隆过滤器类型.可选NONE,ROW,ROWCOL,ROWPREFIX_FIXED_LENGTH
+      :type bloomnFilterType: str, optional
+      :param compressionType: 存储压缩类型.可选LZO,GZ,NONE,SNAPPY,LZ4,BZIP2,ZSTD
+      :type compressionType: str, optional
+      :param dfsReplication: dfs复制类型. Defaults to None.
+      :type dfsReplication: Optional[int], optional
+      :param dataBlockEncoding: 数据块编码类型. 可选NONE,PREFIX,DIFF,FAST_DIFF,ROW_INDEX_V1
+      :type dataBlockEncoding: str, optional
+      :param keepDeletedCells: 删除cell策略类型. 可选FALSE,TRUE,TTL
+      :type keepDeletedCells: str, optional
+      :param maxVersions: 数据最大版本. Defaults to None.
+      :type maxVersions: Optional[int], optional
+      :param minVersions: 数据最小版本. Defaults to None.
+      :type minVersions: Optional[int], optional
+      :param scope: 范围. Defaults to None.
+      :type scope: Optional[int], optional
+      :param timeToLive: 数据过期时间. Defaults to None.
+      :type timeToLive: Optional[int], optional
+      :param blockCacheEnabled: 是否开启块缓存. Defaults to False.
+      :type blockCacheEnabled: bool, optional
+      :param cacheBloomsOnWrite: 是否在写入时缓存布隆过滤器的结果. Defaults to False.
+      :type cacheBloomsOnWrite: bool, optional
+      :param cacheDataOnWrite: 是否在写入数据时缓存数据. Defaults to False.
+      :type cacheDataOnWrite: bool, optional
+      :param cacheIndexesOnWrite: 是否在写入数据时缓存index. Defaults to False.
+      :type cacheIndexesOnWrite: bool, optional
+      :param compressTags: 是否压缩tag. Defaults to False.
+      :type compressTags: bool, optional
+      :param evictBlocksOnClose: 是否关闭时驱逐块. Defaults to False.
+      :type evictBlocksOnClose: bool, optional
+      :param inMemory: 是否保存在内存中. Defaults to False.
+      :type inMemory: bool, optional
+
+      :raises AttributeError: 表名格式不合法
+
+
+   .. py:method:: put(self, table: str, row: str, kvs: List[ColumnsValue], *, ns: Optional[str] = None, timestamp: Optional[datetime.datetime] = None, attributes: Optional[Dict[str, bytes]] = None, durability: Optional[str] = None, cellVisibility: Optional[str] = None, check_row: Optional[str] = None, check_column_full_name: Optional[str] = None, check_column_value: Optional[bytes] = None) -> bool
+
+      插入一行数据.
+
+      如果有设置check_row和check_column_full_name则执行checkAndPut方法,即只有当检查通过时才插入
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param row: 行名
+      :type row: str
+      :param kvs: 传入的值序列
+      :type kvs: List[ColumnsValue]
+      :param ns: 命名空间名称
+      :type ns: Optional[str], optional
+      :param timestamp: 指定时间戳. Defaults to None.
+      :type timestamp: Optional[datetime.datetime], optional
+      :param attributes: 指定属性. Defaults to None.
+      :type attributes: Optional[Dict[str, bytes]], optional
+      :param durability: 指定耐久方式设置,可选的有USE_DEFAULT,SKIP_WAL,ASYNC_WAL,SYNC_WAL,FSYNC_WAL.Defaults to None.
+      :type durability: Optional[str], optional
+      :param cellVisibility: cell的可视性设置. Defaults to None.
+      :type cellVisibility: Optional[str], optional
+      :param check_row: 待监测行名
+      :type check_row: Optional[str], optional
+      :param check_column_full_name: 待检查的列,以`列簇:列名`形式表示,如果有指定`column_value`则检查指定列的值是否和`column_value`指定的相同,否则检查指定列是否存在.
+      :type check_column_full_name: Optional[str], optional
+      :param check_column_value: 指定检查列应该满足的值.
+      :type check_column_value: Optional[bytes], optional
+
+      :raises AttributeError: 表名格式不合法
+
+
+   .. py:method:: delete(self, table: str, row: str, *, ns: Optional[str] = None, columns: Optional[Sequence[str]] = None, timestamp: Optional[datetime.datetime] = None, deleteType: Optional[str] = None, attributes: Optional[Dict[str, bytes]] = None, durability: Optional[str] = None, check_row: Optional[str] = None, check_column_full_name: Optional[str] = None, check_column_value: Optional[bytes] = None) -> bool
+
+      删除指定行的数据.
+
+      如果有设置check_row和check_column_full_name则执行checkAndDelete方法,即只有当检查通过时才删除.
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param row: 行号
+      :type row: str
+      :param ns: 命名空间. Defaults to None.
+      :type ns: Optional[str], optional
+      :param columns: 想要删除值的列,以"列簇:列名"的形式表达. Defaults to None.
+      :type columns: Optional[Sequence[str]], optional
+      :param timestamp: 指定时间戳. Defaults to None.
+      :type timestamp: Optional[datetime.datetime], optional
+      :param deleteType: 指定删除类型,可选为DELETE_COLUMN-删除指定列,DELETE_COLUMNS-删除所有列,DELETE_FAMILY-删除指定列簇,DELETE_FAMILY_VERSION-删除指定列簇的指定版本. Defaults to DELETE_COLUMNS.
+      :type deleteType: Optional[str], optional
+      :param attributes: 指定属性. Defaults to None.
+      :type attributes: Optional[Dict[str, bytes]], optional
+      :param durability: 指定耐久方式设置,可选的有USE_DEFAULT,SKIP_WAL,ASYNC_WAL,SYNC_WAL,FSYNC_WAL.Defaults to None.
+      :type durability: Optional[str], optional
+      :param check_row: 待监测行名
+      :type check_row: Optional[str], optional
+      :param check_column_full_name: 待检查的列,以`列簇:列名`形式表示,如果有指定`column_value`则检查指定列的值是否和`column_value`指定的相同,否则检查指定列是否存在.
+      :type check_column_full_name: Optional[str], optional
+      :param check_column_value: 指定检查列应该满足的值.
+      :type check_column_value: Optional[bytes], optional
+
+      :raises AttributeError: 表名格式不合法
+
+
+   .. py:method:: batch_put(self, table: str, rkvs: Dict[str, Union[List[ColumnsValue], Dict[str, Union[datetime.datetime, Dict[str, bytes], str, List[ColumnsValue]]]]], *, ns: Optional[str] = None) -> None
+
+      批量插入
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param rkvs: 行名与传入的值序列构成的字典或者行名与参数字典组成的字典,参数范围参照put
+      :type rkvs: Dict[str, Union[List[ColumnsValue], Dict[str, Union[datetime.datetime, Dict[str, bytes], str, List[ColumnsValue]]]]]
+      :param ns: 命名空间名称
+      :type ns: Optional[str], optional
+
+      :raises AttributeError: 表名格式不合法
+
+
+   .. py:method:: batch_delete(self, table: str, rows: List[str], *, ns: Optional[str] = None, columns: Optional[Sequence[str]] = None, timestamp: Optional[datetime.datetime] = None, deleteType: Optional[str] = None, attributes: Optional[Dict[str, bytes]] = None, durability: Optional[str] = None) -> None
+
+      批量删除.
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param rows: 要删除数据的行.
+      :type rows: List[str]
+      :param ns: 命名空间. Defaults to None.
+      :type ns: Optional[str], optional
+      :param columns: 想要删除值的列,以"列簇:列名"的形式表达. Defaults to None.
+      :type columns: Optional[Sequence[str]], optional
+      :param timestamp: 指定时间戳. Defaults to None.
+      :type timestamp: Optional[datetime.datetime], optional
+      :param deleteType: 指定删除类型,可选为DELETE_COLUMN-删除指定列,DELETE_COLUMNS-删除所有列,DELETE_FAMILY-删除指定列簇,DELETE_FAMILY_VERSION-删除指定列簇的指定版本. Defaults to DELETE_COLUMNS.
+      :type deleteType: Optional[str], optional
+      :param attributes: 指定属性. Defaults to None.
+      :type attributes: Optional[Dict[str, bytes]], optional
+      :param durability: 指定耐久方式设置,可选的有USE_DEFAULT,SKIP_WAL,ASYNC_WAL,SYNC_WAL,FSYNC_WAL.Defaults to None.
+      :type durability: Optional[str], optional
+
+      :raises AttributeError: _description_
+
+
+   .. py:method:: append(self, table: str, row: str, kvs: List[ColumnsValue], *, ns: Optional[str] = None, attributes: Optional[Dict[str, bytes]] = None, durability: Optional[str] = None, cellVisibility: Optional[str] = None, returnResults: bool = False, columns_decoder: Optional[Mapping[str, Callable[[bytes, Optional[bytes]], Any]]] = None) -> Optional[List[ColumnsValue]]
+
+      追加列数据.
+
+      在不改变原有数据的情况下追加数据,相当于get->put的原子操作.
+
+      注意追加的是bytes,比如原本数据是`3`,追加`2`后会变成`32`
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param row: 行名
+      :type row: str
+      :param kvs: 传入的值序列
+      :type kvs: List[ColumnsValue]
+      :param ns: 命名空间名称. Defaults to None.
+      :type ns: Optional[str], optional
+      :param attributes: 指定属性. Defaults to None.
+      :type attributes: Optional[Dict[str, bytes]], optional
+      :param durability: 指定耐久方式设置,可选的有USE_DEFAULT,SKIP_WAL,ASYNC_WAL,SYNC_WAL,FSYNC_WAL.Defaults to None.
+      :type durability: Optional[str], optional
+      :param cellVisibility: cell的可视性设置. Defaults to None.
+      :type cellVisibility: Optional[str], optional
+      :param returnResults: 是否返回结果. Defaults to False.
+      :type returnResults: bool
+      :param columns_decoder: _description_. Defaults to None.
+      :type columns_decoder: Optional[Mapping[str, Callable[[bytes, Optional[bytes]], Any]]], optional
+
+      :raises AttributeError: 表名格式不合法
+
+      :returns: 结果序列
+      :rtype: Optional[List[ColumnsValue]]
+
+
+   .. py:method:: increment(self, table: str, row: str, kvs: Optional[Dict[str, int]] = None, *, ns: Optional[str] = None, attributes: Optional[Dict[str, bytes]] = None, durability: Optional[str] = None, cellVisibility: Optional[str] = None) -> Dict[str, int]
+
+      原子性的自增.
+
+      相当于get->+n->put的原子操作.注意自增存储依然是在bytes上,因此并不能直接获得整型数,需要将bytes转为16进制字符串再转为10进制数据
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param row: 行名
+      :type row: str
+      :param kvs: 列名与增量的映射关系,当增量设置为0或者为空时使用默认的1作为增量. Defaults to None.
+      :type kvs: Optional[Dict[str, int]], optional
+      :param ns: 命名空间名称. Defaults to None.
+      :type ns: Optional[str], optional
+      :param attributes: 指定属性. Defaults to None.
+      :type attributes: Optional[Dict[str, bytes]], optional
+      :param durability: 指定耐久方式设置,可选的有USE_DEFAULT,SKIP_WAL,ASYNC_WAL,SYNC_WAL,FSYNC_WAL.Defaults to None.
+      :type durability: Optional[str], optional
+      :param cellVisibility: cell的可视性设置. Defaults to None.
+      :type cellVisibility: Optional[str], optional
+
+      :raises AttributeError: 表名格式不合法
+
+      :returns: 结果序列
+      :rtype: Optional[List[ColumnsValue]]
+
+
+   .. py:method:: mutation_session(self, table: str, row: str, *, ns: Optional[str] = None, check_row: Optional[str] = None, check_column_full_name: Optional[str] = None, check_compare_op: Optional[str] = None, check_column_value: Optional[bytes] = None) -> MutationSession
+
+      创建一个mutation会话.
+
+      :param table: 指定会话指向的表,表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param row: 指向会话指向的行
+      :type row: str
+      :param ns: 命名空间. Defaults to None.
+      :type ns: Optional[str], optional
+      :param check_row: 待监测行名
+      :type check_row: Optional[str], optional
+      :param check_column_full_name: 待检查的列,以`列簇:列名`形式表示,如果有指定`column_value`则检查指定列的值是否和`column_value`指定的相同,否则检查指定列是否存在.
+      :type check_column_full_name: Optional[str], optional
+      :param check_column_value: 指定检查列的值与之执行对比操作的值.
+      :type check_column_value: Optional[bytes], optional
+      :param check_compare_op: 指定对比操作,可选的有LESS,LESS_OR_EQUAL,EQUAL,NOT_EQUAL,GREATER_OR_EQUAL,GREATER,NO_OP. Defaults to None.
+      :type check_compare_op: Optional[str], optional
+
+      :raises AttributeError: 表名格式不合法
+
+      :returns: mutation会话对象
+      :rtype: MutationSession
+
+
+   .. py:method:: exists(self, table: str, row: str, *, ns: Optional[str] = None, columns: Optional[Sequence[str]] = None, timestamp: Optional[datetime.datetime] = None, timeRange: Optional[Tuple[datetime.datetime, datetime.datetime]] = None, maxVersions: Optional[int] = None, filterString: Optional[str] = None, attributes: Optional[Dict[str, bytes]] = None, authorizations: Optional[List[str]] = None, consistency: Optional[str] = None, targetReplicaId: Optional[int] = None, cacheBlocks: Optional[bool] = None, storeLimit: Optional[int] = None, storeOffset: Optional[int] = None, existence_only: Optional[bool] = None, filterBytes: Optional[bytes] = None) -> bool
+
+      查看指定行是否存在.
+
+      .. rubric:: 示例
+
+      isin = cli.exists(tablefullname, row)
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param row: 行号
+      :type row: str
+      :param ns: 命名空间. Defaults to None.
+      :type ns: Optional[str], optional
+      :param columns: 想要获取的列,以"列簇:列名"的形式表达. Defaults to None.
+      :type columns: Optional[Sequence[str]], optional
+      :param timestamp: 指定时间戳. Defaults to None.
+      :type timestamp: Optional[datetime.datetime], optional
+      :param timeRange: 指定时间范围. Defaults to None.
+      :type timeRange: Optional[Tuple[datetime.datetime, datetime.datetime]], optional
+      :param maxVersions: 指定最大版本号. Defaults to None.
+      :type maxVersions: Optional[int], optional
+      :param filterString: 指定过滤字符串. Defaults to None.
+      :type filterString: Optional[str], optional
+      :param attributes: 指定属性. Defaults to None.
+      :type attributes: Optional[Dict[str, bytes]], optional
+      :param authorizations: 指定认证信息. Defaults to None.
+      :type authorizations: Optional[List[str]], optional
+      :param consistency: 指定一致性,可选的有STRONG,TIMELINE. Defaults to None.
+      :type consistency: Optional[str], optional
+      :param targetReplicaId: 指定副本丢失修复方法. Defaults to None.
+      :type targetReplicaId: Optional[int], optional
+      :param cacheBlocks: 指定缓存块. Defaults to None.
+      :type cacheBlocks: Optional[bool], optional
+      :param storeLimit: 指定存储限制. Defaults to None.
+      :type storeLimit: Optional[int], optional
+      :param storeOffset: 指定存储偏移量. Defaults to None.
+      :type storeOffset: Optional[int], optional
+      :param existence_only: 指定是否只或许已经存在的. Defaults to None.
+      :type existence_only: Optional[bool], optional
+      :param filterBytes: 过滤字节流. Defaults to None.
+      :type filterBytes: Optional[bytes], optional
+
+      :raises AttributeError: 表名格式错误
+
+      :returns: 结果列表
+      :rtype: List[ColumnsValue]
+
+
+   .. py:method:: get(self, table: str, row: str, *, ns: Optional[str] = None, columns: Optional[Sequence[str]] = None, timestamp: Optional[datetime.datetime] = None, timeRange: Optional[Tuple[datetime.datetime, datetime.datetime]] = None, maxVersions: Optional[int] = None, filterString: Optional[str] = None, attributes: Optional[Dict[str, bytes]] = None, authorizations: Optional[List[str]] = None, consistency: Optional[str] = None, targetReplicaId: Optional[int] = None, cacheBlocks: Optional[bool] = None, storeLimit: Optional[int] = None, storeOffset: Optional[int] = None, existence_only: Optional[bool] = None, filterBytes: Optional[bytes] = None, columns_decoder: Optional[Mapping[str, Callable[[bytes, Optional[bytes]], Any]]] = None) -> Optional[List[ColumnsValue]]
+
+      获取单条数据.
+
+      .. rubric:: 示例
+
+      rowcolumns = cli.get(tablefullname, row, columns_decoder=defaultdict(lambda: lambda x, y: int(x.decode("utf-8"))))
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param row: 行号
+      :type row: str
+      :param ns: 命名空间. Defaults to None.
+      :type ns: Optional[str], optional
+      :param columns: 想要获取的列,以"列簇:列名"的形式表达. Defaults to None.
+      :type columns: Optional[Sequence[str]], optional
+      :param timestamp: 指定时间戳. Defaults to None.
+      :type timestamp: Optional[datetime.datetime], optional
+      :param timeRange: 指定时间范围. Defaults to None.
+      :type timeRange: Optional[Tuple[datetime.datetime, datetime.datetime]], optional
+      :param maxVersions: 指定最大版本号. Defaults to None.
+      :type maxVersions: Optional[int], optional
+      :param filterString: 指定过滤字符串. Defaults to None.
+      :type filterString: Optional[str], optional
+      :param attributes: 指定属性. Defaults to None.
+      :type attributes: Optional[Dict[str, bytes]], optional
+      :param authorizations: 指定认证信息. Defaults to None.
+      :type authorizations: Optional[List[str]], optional
+      :param consistency: 指定一致性,可选的有STRONG,TIMELINE. Defaults to None.
+      :type consistency: Optional[str], optional
+      :param targetReplicaId: 指定副本丢失修复方法. Defaults to None.
+      :type targetReplicaId: Optional[int], optional
+      :param cacheBlocks: 指定缓存块. Defaults to None.
+      :type cacheBlocks: Optional[bool], optional
+      :param storeLimit: 指定存储限制. Defaults to None.
+      :type storeLimit: Optional[int], optional
+      :param storeOffset: 指定存储偏移量. Defaults to None.
+      :type storeOffset: Optional[int], optional
+      :param existence_only: 指定是否只或许已经存在的. Defaults to None.
+      :type existence_only: Optional[bool], optional
+      :param filterBytes: 过滤字节流. Defaults to None.
+      :type filterBytes: Optional[bytes], optional
+      :param columns_decoder: 列的解码器设置,可以使用defaultdict赋值一个默认解码器. Defaults to None.
+      :type columns_decoder: Optional[Mapping[str, Callable[[bytes, Optional[bytes]], Any]]], optional
+
+      :raises AttributeError: 表名格式错误
+
+      :returns: 结果列表
+      :rtype: List[ColumnsValue]
+
+
+   .. py:method:: batch_get(self, table: str, rows: List[str], *, ns: Optional[str] = None, columns: Optional[Sequence[str]] = None, timestamp: Optional[datetime.datetime] = None, timeRange: Optional[Tuple[datetime.datetime, datetime.datetime]] = None, maxVersions: Optional[int] = None, filterString: Optional[str] = None, attributes: Optional[Dict[str, bytes]] = None, authorizations: Optional[List[str]] = None, consistency: Optional[str] = None, targetReplicaId: Optional[int] = None, cacheBlocks: Optional[bool] = None, storeLimit: Optional[int] = None, storeOffset: Optional[int] = None, existence_only: Optional[bool] = None, filterBytes: Optional[bytes] = None, columns_decoder: Optional[Mapping[str, Callable[[bytes, Optional[bytes]], Any]]] = None) -> Dict[str, List[ColumnsValue]]
+
+      获取单条数据.
+
+      .. rubric:: 示例
+
+      rowcolumns = cli.get(tablefullname, row, columns_decoder=defaultdict(lambda: lambda x, y: int(x.decode("utf-8"))))
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param rows: 行号列表
+      :type rows: str
+      :param ns: 命名空间. Defaults to None.
+      :type ns: Optional[str], optional
+      :param columns: 想要获取的列,以"列簇:列名"的形式表达. Defaults to None.
+      :type columns: Optional[Sequence[str]], optional
+      :param timestamp: 指定时间戳. Defaults to None.
+      :type timestamp: Optional[datetime.datetime], optional
+      :param timeRange: 指定时间范围. Defaults to None.
+      :type timeRange: Optional[Tuple[datetime.datetime, datetime.datetime]], optional
+      :param maxVersions: 指定最大版本号. Defaults to None.
+      :type maxVersions: Optional[int], optional
+      :param filterString: 指定过滤字符串. Defaults to None.
+      :type filterString: Optional[str], optional
+      :param attributes: 指定属性. Defaults to None.
+      :type attributes: Optional[Dict[str, bytes]], optional
+      :param authorizations: 指定认证信息. Defaults to None.
+      :type authorizations: Optional[List[str]], optional
+      :param consistency: 指定一致性,可选的有STRONG,TIMELINE. Defaults to None.
+      :type consistency: Optional[str], optional
+      :param targetReplicaId: 指定副本丢失修复方法. Defaults to None.
+      :type targetReplicaId: Optional[int], optional
+      :param cacheBlocks: 指定缓存块. Defaults to None.
+      :type cacheBlocks: Optional[bool], optional
+      :param storeLimit: 指定存储限制. Defaults to None.
+      :type storeLimit: Optional[int], optional
+      :param storeOffset: 指定存储偏移量. Defaults to None.
+      :type storeOffset: Optional[int], optional
+      :param existence_only: 指定是否只或许已经存在的. Defaults to None.
+      :type existence_only: Optional[bool], optional
+      :param filterBytes: 过滤字节流. Defaults to None.
+      :type filterBytes: Optional[bytes], optional
+      :param columns_decoder: 列的解码器设置,可以使用defaultdict赋值一个默认解码器. Defaults to None.
+      :type columns_decoder: Optional[Mapping[str, Callable[[bytes, Optional[bytes]], Any]]], optional
+
+      :raises AttributeError: 表名格式错误
+
+      :returns: 结果列表
+      :rtype: Dict[str, List[ColumnsValue]]
+
+
+   .. py:method:: scan(self, table: str, *, ns: Optional[str] = None, startRow: Optional[str] = None, stopRow: Optional[str] = None, columns: Optional[Sequence[str]] = None, caching: Optional[int] = None, maxVersions: Optional[int] = 1, timeRange: Optional[Tuple[datetime.datetime, datetime.datetime]] = None, filterString: Optional[str] = None, batchSize: Optional[int] = None, attributes: Optional[Dict[str, bytes]] = None, authorizations: Optional[List[str]] = None, reversed: Optional[bool] = None, cacheBlocks: Optional[bool] = None, colFamTimeRangeMap: Optional[Dict[str, Tuple[datetime.datetime, datetime.datetime]]] = None, readType: Optional[str] = None, limit: Optional[int] = None, consistency: Optional[str] = None, targetReplicaId: Optional[int] = None, filterBytes: Optional[bytes] = None, rowNum: Optional[int] = 20, columns_decoder: Optional[Mapping[str, Callable[[bytes, Optional[bytes]], Any]]] = None) -> Dict[str, List[ColumnsValue]]
+
+      查询符合要求的行数据.
+
+      :param table: 表名, 表名中如果是"ns:table"的形式已经指定了命名空间则可以不填ns参数
+      :type table: str
+      :param ns: 命名空间. Defaults to None.
+      :type ns: Optional[str], optional
+      :param startRow: 起始行. Defaults to None.
+      :type startRow: Optional[str], optional
+      :param stopRow: 结束行. Defaults to None.
+      :type stopRow: Optional[str], optional
+      :param columns: 想要获取的列,以"列簇:列名"的形式表达. Defaults to None.
+      :type columns: Optional[Sequence[str]], optional
+      :param caching: 缓存大小. Defaults to None.
+      :type caching: Optional[int], optional
+      :param maxVersions: 数据最大版本. Defaults to 1.
+      :type maxVersions: Optional[int], optional
+      :param timeRange: 查找时间范围. Defaults to None.
+      :type timeRange: Optional[Tuple[datetime.datetime, datetime.datetime]], optional
+      :param filterString: 查询字符串. Defaults to None.
+      :type filterString: Optional[str], optional
+      :param batchSize: 批大小. Defaults to None.
+      :type batchSize: Optional[int], optional
+      :param attributes: 属性字典. Defaults to None.
+      :type attributes: Optional[Dict[str, bytes]], optional
+      :param authorizations: 验证信息. Defaults to None.
+      :type authorizations: Optional[List[str]], optional
+      :param reversed: 排序反转. Defaults to None.
+      :type reversed: Optional[bool], optional
+      :param cacheBlocks: 缓存块. Defaults to None.
+      :type cacheBlocks: Optional[bool], optional
+      :param colFamTimeRangeMap: 列簇查找时间范围. Defaults to None.
+      :type colFamTimeRangeMap: Optional[Dict[str, Tuple[datetime.datetime, datetime.datetime]]], optional
+      :param readType: 阅读类型,可选DEFAULT,STREAM,PREAD. Defaults to None.
+      :type readType: Optional[str], optional
+      :param limit: 长度限制. Defaults to None.
+      :type limit: Optional[int], optional
+      :param consistency: 指定一致性,可选的有STRONG,TIMELINE. Defaults to None.
+      :type consistency: Optional[str], optional
+      :param targetReplicaId: 指定副本丢失修复方法.. Defaults to None.
+      :type targetReplicaId: Optional[int], optional
+      :param filterBytes: 过滤字节流. Defaults to None.
+      :type filterBytes: Optional[bytes], optional
+      :param rowNum: 一次获取的行数量. Defaults to 20.
+      :type rowNum: Optional[int], optional
+      :param columns_decoder: _description_. Defaults to None.
+      :type columns_decoder: Optional[Mapping[str, Callable[[bytes, Optional[bytes]], Any]]], optional
+
+      :raises AttributeError: 表名格式不合法
+
+      :returns: 结果字典
+      :rtype: Dict[str, List[ColumnsValue]]
+
+
+
+.. py:class:: MutationSession(cli: HBaseCli, table: str, row: str, *, ns: Optional[str] = None, check_row: Optional[str] = None, check_column_full_name: Optional[str] = None, check_compare_op: Optional[str] = None, check_column_value: Optional[bytes] = None)
+
+   .. py:method:: __enter__(self) -> MutationSession
+
+
+   .. py:method:: __exit__(self, exc_type: Any, exc_value: Any, traceback: Any) -> None
+
+
+   .. py:method:: status(self) -> MutationStatus
+      :property:
+
+      mutation会话的状态.
+
+
+   .. py:method:: submit(self) -> bool
+
+      提交mutation会话.
+
+
+   .. py:method:: add_put(self, kvs: List[ColumnsValue], *, row: Optional[str] = None, timestamp: Optional[datetime.datetime] = None, attributes: Optional[Dict[str, bytes]] = None, durability: Optional[str] = None, cellVisibility: Optional[str] = None) -> MutationSession
+
+      添加修改操作
+
+      :param kvs: kvs (List[ColumnsValue]): 传入的值序列
+      :type kvs: List[ColumnsValue]
+      :param row: 行名,如果不填则使用默认行. Defaults to None.
+      :type row: Optional[str], optional
+      :param timestamp: 指定时间戳. Defaults to None.
+      :type timestamp: Optional[datetime.datetime], optional
+      :param attributes: 指定属性. Defaults to None.
+      :type attributes: Optional[Dict[str, bytes]], optional
+      :param durability: 指定耐久方式设置,可选的有USE_DEFAULT,SKIP_WAL,ASYNC_WAL,SYNC_WAL,FSYNC_WAL.Defaults to None.
+      :type durability: Optional[str], optional
+      :param cellVisibility: cell的可视性设置. Defaults to None.
+      :type cellVisibility: Optional[str], optional
+
+      :returns: _description_
+      :rtype: MutationSession
+
+
+   .. py:method:: add_delete(self, *, row: Optional[str] = None, columns: Optional[Sequence[str]] = None, timestamp: Optional[datetime.datetime] = None, deleteType: Optional[str] = None, attributes: Optional[Dict[str, bytes]] = None, durability: Optional[str] = None) -> MutationSession
+
+      增加删除行为.
+
+      :param row: 指定要删除数据的行,如果不指定则使用默认行. Defaults to None.
+      :type row: Optional[str], optional
+      :param columns: 指定要删除的列信息,以"列簇:列名"的形式表达. Defaults to None.
+      :type columns: Optional[Sequence[str]], optional
+      :param timestamp: 指定时间戳. Defaults to None.
+      :type timestamp: Optional[datetime.datetime], optional
+      :param deleteType: 指定删除类型,可选为DELETE_COLUMN-删除指定列,DELETE_COLUMNS-删除所有列,DELETE_FAMILY-删除指定列簇,DELETE_FAMILY_VERSION-删除指定列簇的指定版本. Defaults to DELETE_COLUMNS.
+      :type deleteType: Optional[str], optional
+      :param attributes: 指定属性. Defaults to None.
+      :type attributes: Optional[Dict[str, bytes]], optional
+      :param durability: 指定耐久方式设置,可选的有USE_DEFAULT,SKIP_WAL,ASYNC_WAL,SYNC_WAL,FSYNC_WAL.Defaults to None.
+      :type durability: Optional[str], optional
+
+      :returns: _description_
+      :rtype: MutationSession
+
+
+
+.. py:function:: StrEncoder(x: Any, y: Optional[str] = None) -> bytes
+
+   字符串编码器.
+
+   将python对象的字面量编码为字节流.
+
+   :param x: python对象
+   :type x: Any
+   :param y: 无用占位
+   :type y: Optional[str]
+
+   :returns: 编码后的结果
+   :rtype: bytes
+
+
+.. py:function:: StrDecoder(x: bytes, y: Optional[bytes] = None) -> str
+
+   字符串解码器.
+
+   将字节流解码为将python字符串.
+
+   :param x: 待解码字节流
+   :type x: bytes
+   :param y: 无用占位
+   :type y: Optional[bytes]
+
+   :returns: 字符串
+   :rtype: str
+
+
+.. py:function:: JsonEncoder(x: Any, y: Optional[str] = None) -> bytes
+
+   json编码器.
+
+   将python对象用json编码为字节流.
+
+   :param x: python对象
+   :type x: Any
+   :param y: 无用占位
+   :type y: Optional[str]
+
+   :returns: 编码后的结果
+   :rtype: bytes
+
+
+.. py:function:: JsonDecoder(x: bytes, y: Optional[bytes] = None) -> Any
+
+   json解码器.
+
+   将字节流解码为将python字符串.
+
+   :param x: 待解码字节流
+   :type x: bytes
+   :param y: 无用占位
+   :type y: Optional[bytes]
+
+   :returns: python对象
+   :rtype: Any
+
+
+.. py:function:: NumberDecoder(x: bytes, y: Optional[bytes] = None) -> int
+
+   将bytes转化为int型数据.
+
+   用于获取incr操作列中的当前值.
+
+   :param x: 待解码字节流
+   :type x: bytes
+   :param y: 无用占位
+   :type y: bytes
+
+   :returns: 当前值
+   :rtype: int
+
+

@@ -1,0 +1,1866 @@
+:py:mod:`pyhbasecli.hbase.ttypes`
+=================================
+
+.. py:module:: pyhbasecli.hbase.ttypes
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyhbasecli.hbase.ttypes.TDeleteType
+   pyhbasecli.hbase.ttypes.TDurability
+   pyhbasecli.hbase.ttypes.TConsistency
+   pyhbasecli.hbase.ttypes.TReadType
+   pyhbasecli.hbase.ttypes.TCompareOp
+   pyhbasecli.hbase.ttypes.TBloomFilterType
+   pyhbasecli.hbase.ttypes.TCompressionAlgorithm
+   pyhbasecli.hbase.ttypes.TDataBlockEncoding
+   pyhbasecli.hbase.ttypes.TKeepDeletedCells
+   pyhbasecli.hbase.ttypes.TTimeRange
+   pyhbasecli.hbase.ttypes.TColumn
+   pyhbasecli.hbase.ttypes.TColumnValue
+   pyhbasecli.hbase.ttypes.TColumnIncrement
+   pyhbasecli.hbase.ttypes.TResult
+   pyhbasecli.hbase.ttypes.TAuthorization
+   pyhbasecli.hbase.ttypes.TCellVisibility
+   pyhbasecli.hbase.ttypes.TGet
+   pyhbasecli.hbase.ttypes.TPut
+   pyhbasecli.hbase.ttypes.TDelete
+   pyhbasecli.hbase.ttypes.TIncrement
+   pyhbasecli.hbase.ttypes.TAppend
+   pyhbasecli.hbase.ttypes.TScan
+   pyhbasecli.hbase.ttypes.TMutation
+   pyhbasecli.hbase.ttypes.TRowMutations
+   pyhbasecli.hbase.ttypes.THRegionInfo
+   pyhbasecli.hbase.ttypes.TServerName
+   pyhbasecli.hbase.ttypes.THRegionLocation
+   pyhbasecli.hbase.ttypes.TTableName
+   pyhbasecli.hbase.ttypes.TColumnFamilyDescriptor
+   pyhbasecli.hbase.ttypes.TTableDescriptor
+   pyhbasecli.hbase.ttypes.TNamespaceDescriptor
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   pyhbasecli.hbase.ttypes.all_structs
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+   pyhbasecli.hbase.ttypes.thrift_spec
+
+
+.. py:data:: all_structs
+   :annotation: = []
+
+   
+
+.. py:class:: TDeleteType
+
+   Bases: :py:obj:`object`
+
+   Specify type of delete:
+    - DELETE_COLUMN means exactly one version will be removed,
+    - DELETE_COLUMNS means previous versions will also be removed.
+
+
+   .. py:attribute:: DELETE_COLUMN
+      :annotation: = 0
+
+      
+
+   .. py:attribute:: DELETE_COLUMNS
+      :annotation: = 1
+
+      
+
+   .. py:attribute:: DELETE_FAMILY
+      :annotation: = 2
+
+      
+
+   .. py:attribute:: DELETE_FAMILY_VERSION
+      :annotation: = 3
+
+      
+
+   .. py:attribute:: _VALUES_TO_NAMES
+      
+
+      
+
+   .. py:attribute:: _NAMES_TO_VALUES
+      
+
+      
+
+
+.. py:class:: TDurability
+
+   Bases: :py:obj:`object`
+
+   Specify Durability:
+    - SKIP_WAL means do not write the Mutation to the WAL.
+    - ASYNC_WAL means write the Mutation to the WAL asynchronously,
+    - SYNC_WAL means write the Mutation to the WAL synchronously,
+    - FSYNC_WAL means Write the Mutation to the WAL synchronously and force the entries to disk.
+
+
+   .. py:attribute:: USE_DEFAULT
+      :annotation: = 0
+
+      
+
+   .. py:attribute:: SKIP_WAL
+      :annotation: = 1
+
+      
+
+   .. py:attribute:: ASYNC_WAL
+      :annotation: = 2
+
+      
+
+   .. py:attribute:: SYNC_WAL
+      :annotation: = 3
+
+      
+
+   .. py:attribute:: FSYNC_WAL
+      :annotation: = 4
+
+      
+
+   .. py:attribute:: _VALUES_TO_NAMES
+      
+
+      
+
+   .. py:attribute:: _NAMES_TO_VALUES
+      
+
+      
+
+
+.. py:class:: TConsistency
+
+   Bases: :py:obj:`object`
+
+   Specify Consistency:
+    - STRONG means reads only from primary region
+    - TIMELINE means reads might return values from secondary region replicas
+
+
+   .. py:attribute:: STRONG
+      :annotation: = 1
+
+      
+
+   .. py:attribute:: TIMELINE
+      :annotation: = 2
+
+      
+
+   .. py:attribute:: _VALUES_TO_NAMES
+      
+
+      
+
+   .. py:attribute:: _NAMES_TO_VALUES
+      
+
+      
+
+
+.. py:class:: TReadType
+
+   Bases: :py:obj:`object`
+
+   .. py:attribute:: DEFAULT
+      :annotation: = 1
+
+      
+
+   .. py:attribute:: STREAM
+      :annotation: = 2
+
+      
+
+   .. py:attribute:: PREAD
+      :annotation: = 3
+
+      
+
+   .. py:attribute:: _VALUES_TO_NAMES
+      
+
+      
+
+   .. py:attribute:: _NAMES_TO_VALUES
+      
+
+      
+
+
+.. py:class:: TCompareOp
+
+   Bases: :py:obj:`object`
+
+   Thrift wrapper around
+   org.apache.hadoop.hbase.filter.CompareFilter$CompareOp.
+
+
+   .. py:attribute:: LESS
+      :annotation: = 0
+
+      
+
+   .. py:attribute:: LESS_OR_EQUAL
+      :annotation: = 1
+
+      
+
+   .. py:attribute:: EQUAL
+      :annotation: = 2
+
+      
+
+   .. py:attribute:: NOT_EQUAL
+      :annotation: = 3
+
+      
+
+   .. py:attribute:: GREATER_OR_EQUAL
+      :annotation: = 4
+
+      
+
+   .. py:attribute:: GREATER
+      :annotation: = 5
+
+      
+
+   .. py:attribute:: NO_OP
+      :annotation: = 6
+
+      
+
+   .. py:attribute:: _VALUES_TO_NAMES
+      
+
+      
+
+   .. py:attribute:: _NAMES_TO_VALUES
+      
+
+      
+
+
+.. py:class:: TBloomFilterType
+
+   Bases: :py:obj:`object`
+
+   Thrift wrapper around
+   org.apache.hadoop.hbase.regionserver.BloomType
+
+
+   .. py:attribute:: NONE
+      :annotation: = 0
+
+      
+
+   .. py:attribute:: ROW
+      :annotation: = 1
+
+      
+
+   .. py:attribute:: ROWCOL
+      :annotation: = 2
+
+      
+
+   .. py:attribute:: ROWPREFIX_FIXED_LENGTH
+      :annotation: = 3
+
+      
+
+   .. py:attribute:: _VALUES_TO_NAMES
+      
+
+      
+
+   .. py:attribute:: _NAMES_TO_VALUES
+      
+
+      
+
+
+.. py:class:: TCompressionAlgorithm
+
+   Bases: :py:obj:`object`
+
+   Thrift wrapper around
+   org.apache.hadoop.hbase.io.compress.Algorithm
+
+
+   .. py:attribute:: LZO
+      :annotation: = 0
+
+      
+
+   .. py:attribute:: GZ
+      :annotation: = 1
+
+      
+
+   .. py:attribute:: NONE
+      :annotation: = 2
+
+      
+
+   .. py:attribute:: SNAPPY
+      :annotation: = 3
+
+      
+
+   .. py:attribute:: LZ4
+      :annotation: = 4
+
+      
+
+   .. py:attribute:: BZIP2
+      :annotation: = 5
+
+      
+
+   .. py:attribute:: ZSTD
+      :annotation: = 6
+
+      
+
+   .. py:attribute:: _VALUES_TO_NAMES
+      
+
+      
+
+   .. py:attribute:: _NAMES_TO_VALUES
+      
+
+      
+
+
+.. py:class:: TDataBlockEncoding
+
+   Bases: :py:obj:`object`
+
+   Thrift wrapper around
+   org.apache.hadoop.hbase.io.encoding.DataBlockEncoding
+
+
+   .. py:attribute:: NONE
+      :annotation: = 0
+
+      
+
+   .. py:attribute:: PREFIX
+      :annotation: = 2
+
+      
+
+   .. py:attribute:: DIFF
+      :annotation: = 3
+
+      
+
+   .. py:attribute:: FAST_DIFF
+      :annotation: = 4
+
+      
+
+   .. py:attribute:: ROW_INDEX_V1
+      :annotation: = 7
+
+      
+
+   .. py:attribute:: _VALUES_TO_NAMES
+      
+
+      
+
+   .. py:attribute:: _NAMES_TO_VALUES
+      
+
+      
+
+
+.. py:class:: TKeepDeletedCells
+
+   Bases: :py:obj:`object`
+
+   Thrift wrapper around
+   org.apache.hadoop.hbase.KeepDeletedCells
+
+
+   .. py:attribute:: FALSE
+      :annotation: = 0
+
+      
+
+   .. py:attribute:: TRUE
+      :annotation: = 1
+
+      
+
+   .. py:attribute:: TTL
+      :annotation: = 2
+
+      
+
+   .. py:attribute:: _VALUES_TO_NAMES
+      
+
+      
+
+   .. py:attribute:: _NAMES_TO_VALUES
+      
+
+      
+
+
+.. py:class:: TTimeRange(minStamp=None, maxStamp=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - minStamp
+
+      
+
+   .. attribute:: - maxStamp
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TColumn(family=None, qualifier=None, timestamp=None)
+
+   Bases: :py:obj:`object`
+
+   Addresses a single cell or multiple cells
+   in a HBase table by column family and optionally
+   a column qualifier and timestamp
+
+   .. attribute:: - family
+
+      
+
+   .. attribute:: - qualifier
+
+      
+
+   .. attribute:: - timestamp
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TColumnValue(family=None, qualifier=None, value=None, timestamp=None, tags=None, type=None)
+
+   Bases: :py:obj:`object`
+
+   Represents a single cell and its value.
+
+   .. attribute:: - family
+
+      
+
+   .. attribute:: - qualifier
+
+      
+
+   .. attribute:: - value
+
+      
+
+   .. attribute:: - timestamp
+
+      
+
+   .. attribute:: - tags
+
+      
+
+   .. attribute:: - type
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TColumnIncrement(family=None, qualifier=None, amount=1)
+
+   Bases: :py:obj:`object`
+
+   Represents a single cell and the amount to increment it by
+
+   .. attribute:: - family
+
+      
+
+   .. attribute:: - qualifier
+
+      
+
+   .. attribute:: - amount
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TResult(row=None, columnValues=None, stale=False, partial=False)
+
+   Bases: :py:obj:`object`
+
+   if no Result is found, row and columnValues will not be set.
+
+   .. attribute:: - row
+
+      
+
+   .. attribute:: - columnValues
+
+      
+
+   .. attribute:: - stale
+
+      
+
+   .. attribute:: - partial
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TAuthorization(labels=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - labels
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TCellVisibility(expression=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - expression
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TGet(row=None, columns=None, timestamp=None, timeRange=None, maxVersions=None, filterString=None, attributes=None, authorizations=None, consistency=None, targetReplicaId=None, cacheBlocks=None, storeLimit=None, storeOffset=None, existence_only=None, filterBytes=None)
+
+   Bases: :py:obj:`object`
+
+   Used to perform Get operations on a single row.
+
+   The scope can be further narrowed down by specifying a list of
+   columns or column families.
+
+   To get everything for a row, instantiate a Get object with just the row to get.
+   To further define the scope of what to get you can add a timestamp or time range
+   with an optional maximum number of versions to return.
+
+   If you specify a time range and a timestamp the range is ignored.
+   Timestamps on TColumns are ignored.
+
+   .. attribute:: - row
+
+      
+
+   .. attribute:: - columns
+
+      
+
+   .. attribute:: - timestamp
+
+      
+
+   .. attribute:: - timeRange
+
+      
+
+   .. attribute:: - maxVersions
+
+      
+
+   .. attribute:: - filterString
+
+      
+
+   .. attribute:: - attributes
+
+      
+
+   .. attribute:: - authorizations
+
+      
+
+   .. attribute:: - consistency
+
+      
+
+   .. attribute:: - targetReplicaId
+
+      
+
+   .. attribute:: - cacheBlocks
+
+      
+
+   .. attribute:: - storeLimit
+
+      
+
+   .. attribute:: - storeOffset
+
+      
+
+   .. attribute:: - existence_only
+
+      
+
+   .. attribute:: - filterBytes
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TPut(row=None, columnValues=None, timestamp=None, attributes=None, durability=None, cellVisibility=None)
+
+   Bases: :py:obj:`object`
+
+   Used to perform Put operations for a single row.
+
+   Add column values to this object and they'll be added.
+   You can provide a default timestamp if the column values
+   don't have one. If you don't provide a default timestamp
+   the current time is inserted.
+
+   You can specify how this Put should be written to the write-ahead Log (WAL)
+   by changing the durability. If you don't provide durability, it defaults to
+   column family's default setting for durability.
+
+   .. attribute:: - row
+
+      
+
+   .. attribute:: - columnValues
+
+      
+
+   .. attribute:: - timestamp
+
+      
+
+   .. attribute:: - attributes
+
+      
+
+   .. attribute:: - durability
+
+      
+
+   .. attribute:: - cellVisibility
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TDelete(row=None, columns=None, timestamp=None, deleteType=1, attributes=None, durability=None)
+
+   Bases: :py:obj:`object`
+
+   Used to perform Delete operations on a single row.
+
+   The scope can be further narrowed down by specifying a list of
+   columns or column families as TColumns.
+
+   Specifying only a family in a TColumn will delete the whole family.
+   If a timestamp is specified all versions with a timestamp less than
+   or equal to this will be deleted. If no timestamp is specified the
+   current time will be used.
+
+   Specifying a family and a column qualifier in a TColumn will delete only
+   this qualifier. If a timestamp is specified only versions equal
+   to this timestamp will be deleted. If no timestamp is specified the
+   most recent version will be deleted.  To delete all previous versions,
+   specify the DELETE_COLUMNS TDeleteType.
+
+   The top level timestamp is only used if a complete row should be deleted
+   (i.e. no columns are passed) and if it is specified it works the same way
+   as if you had added a TColumn for every column family and this timestamp
+   (i.e. all versions older than or equal in all column families will be deleted)
+
+   You can specify how this Delete should be written to the write-ahead Log (WAL)
+   by changing the durability. If you don't provide durability, it defaults to
+   column family's default setting for durability.
+
+   .. attribute:: - row
+
+      
+
+   .. attribute:: - columns
+
+      
+
+   .. attribute:: - timestamp
+
+      
+
+   .. attribute:: - deleteType
+
+      
+
+   .. attribute:: - attributes
+
+      
+
+   .. attribute:: - durability
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TIncrement(row=None, columns=None, attributes=None, durability=None, cellVisibility=None, returnResults=None)
+
+   Bases: :py:obj:`object`
+
+   Used to perform Increment operations for a single row.
+
+   You can specify how this Increment should be written to the write-ahead Log (WAL)
+   by changing the durability. If you don't provide durability, it defaults to
+   column family's default setting for durability.
+
+   .. attribute:: - row
+
+      
+
+   .. attribute:: - columns
+
+      
+
+   .. attribute:: - attributes
+
+      
+
+   .. attribute:: - durability
+
+      
+
+   .. attribute:: - cellVisibility
+
+      
+
+   .. attribute:: - returnResults
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TAppend(row=None, columns=None, attributes=None, durability=None, cellVisibility=None, returnResults=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - row
+
+      
+
+   .. attribute:: - columns
+
+      
+
+   .. attribute:: - attributes
+
+      
+
+   .. attribute:: - durability
+
+      
+
+   .. attribute:: - cellVisibility
+
+      
+
+   .. attribute:: - returnResults
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TScan(startRow=None, stopRow=None, columns=None, caching=None, maxVersions=1, timeRange=None, filterString=None, batchSize=None, attributes=None, authorizations=None, reversed=None, cacheBlocks=None, colFamTimeRangeMap=None, readType=None, limit=None, consistency=None, targetReplicaId=None, filterBytes=None)
+
+   Bases: :py:obj:`object`
+
+   Any timestamps in the columns are ignored but the colFamTimeRangeMap included, use timeRange to select by timestamp.
+   Max versions defaults to 1.
+
+   .. attribute:: - startRow
+
+      
+
+   .. attribute:: - stopRow
+
+      
+
+   .. attribute:: - columns
+
+      
+
+   .. attribute:: - caching
+
+      
+
+   .. attribute:: - maxVersions
+
+      
+
+   .. attribute:: - timeRange
+
+      
+
+   .. attribute:: - filterString
+
+      
+
+   .. attribute:: - batchSize
+
+      
+
+   .. attribute:: - attributes
+
+      
+
+   .. attribute:: - authorizations
+
+      
+
+   .. attribute:: - reversed
+
+      
+
+   .. attribute:: - cacheBlocks
+
+      
+
+   .. attribute:: - colFamTimeRangeMap
+
+      
+
+   .. attribute:: - readType
+
+      
+
+   .. attribute:: - limit
+
+      
+
+   .. attribute:: - consistency
+
+      
+
+   .. attribute:: - targetReplicaId
+
+      
+
+   .. attribute:: - filterBytes
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TMutation(put=None, deleteSingle=None)
+
+   Bases: :py:obj:`object`
+
+   Atomic mutation for the specified row. It can be either Put or Delete.
+
+   .. attribute:: - put
+
+      
+
+   .. attribute:: - deleteSingle
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TRowMutations(row=None, mutations=None)
+
+   Bases: :py:obj:`object`
+
+   A TRowMutations object is used to apply a number of Mutations to a single row.
+
+   .. attribute:: - row
+
+      
+
+   .. attribute:: - mutations
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: THRegionInfo(regionId=None, tableName=None, startKey=None, endKey=None, offline=None, split=None, replicaId=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - regionId
+
+      
+
+   .. attribute:: - tableName
+
+      
+
+   .. attribute:: - startKey
+
+      
+
+   .. attribute:: - endKey
+
+      
+
+   .. attribute:: - offline
+
+      
+
+   .. attribute:: - split
+
+      
+
+   .. attribute:: - replicaId
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TServerName(hostName=None, port=None, startCode=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - hostName
+
+      
+
+   .. attribute:: - port
+
+      
+
+   .. attribute:: - startCode
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: THRegionLocation(serverName=None, regionInfo=None)
+
+   Bases: :py:obj:`object`
+
+   .. attribute:: - serverName
+
+      
+
+   .. attribute:: - regionInfo
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TTableName(ns=None, qualifier=None)
+
+   Bases: :py:obj:`object`
+
+   Thrift wrapper around
+   org.apache.hadoop.hbase.TableName
+
+   .. attribute:: - ns
+
+      namespace name
+
+   .. attribute:: - qualifier
+
+      tablename
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TColumnFamilyDescriptor(name=None, attributes=None, configuration=None, blockSize=None, bloomnFilterType=None, compressionType=None, dfsReplication=None, dataBlockEncoding=None, keepDeletedCells=None, maxVersions=None, minVersions=None, scope=None, timeToLive=None, blockCacheEnabled=None, cacheBloomsOnWrite=None, cacheDataOnWrite=None, cacheIndexesOnWrite=None, compressTags=None, evictBlocksOnClose=None, inMemory=None)
+
+   Bases: :py:obj:`object`
+
+   Thrift wrapper around
+   org.apache.hadoop.hbase.client.ColumnFamilyDescriptor
+
+   .. attribute:: - name
+
+      
+
+   .. attribute:: - attributes
+
+      
+
+   .. attribute:: - configuration
+
+      
+
+   .. attribute:: - blockSize
+
+      
+
+   .. attribute:: - bloomnFilterType
+
+      
+
+   .. attribute:: - compressionType
+
+      
+
+   .. attribute:: - dfsReplication
+
+      
+
+   .. attribute:: - dataBlockEncoding
+
+      
+
+   .. attribute:: - keepDeletedCells
+
+      
+
+   .. attribute:: - maxVersions
+
+      
+
+   .. attribute:: - minVersions
+
+      
+
+   .. attribute:: - scope
+
+      
+
+   .. attribute:: - timeToLive
+
+      
+
+   .. attribute:: - blockCacheEnabled
+
+      
+
+   .. attribute:: - cacheBloomsOnWrite
+
+      
+
+   .. attribute:: - cacheDataOnWrite
+
+      
+
+   .. attribute:: - cacheIndexesOnWrite
+
+      
+
+   .. attribute:: - compressTags
+
+      
+
+   .. attribute:: - evictBlocksOnClose
+
+      
+
+   .. attribute:: - inMemory
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TTableDescriptor(tableName=None, columns=None, attributes=None, durability=None)
+
+   Bases: :py:obj:`object`
+
+   Thrift wrapper around
+   org.apache.hadoop.hbase.client.TableDescriptor
+
+   .. attribute:: - tableName
+
+      
+
+   .. attribute:: - columns
+
+      
+
+   .. attribute:: - attributes
+
+      
+
+   .. attribute:: - durability
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:class:: TNamespaceDescriptor(name=None, configuration=None)
+
+   Bases: :py:obj:`object`
+
+   Thrift wrapper around
+   org.apache.hadoop.hbase.NamespaceDescriptor
+
+   .. attribute:: - name
+
+      
+
+   .. attribute:: - configuration
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:exception:: TIOError(message=None)
+
+   Bases: :py:obj:`thrift.Thrift.TException`
+
+   A TIOError exception signals that an error occurred communicating
+   to the HBase master or a HBase region server. Also used to return
+   more general HBase error conditions.
+
+   .. attribute:: - message
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __str__(self)
+
+      Return str(self).
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:exception:: TIllegalArgument(message=None)
+
+   Bases: :py:obj:`thrift.Thrift.TException`
+
+   A TIllegalArgument exception indicates an illegal or invalid
+   argument was passed into a procedure.
+
+   .. attribute:: - message
+
+      
+
+   .. py:method:: read(self, iprot)
+
+
+   .. py:method:: write(self, oprot)
+
+
+   .. py:method:: validate(self)
+
+
+   .. py:method:: __str__(self)
+
+      Return str(self).
+
+
+   .. py:method:: __repr__(self)
+
+      Return repr(self).
+
+
+   .. py:method:: __eq__(self, other)
+
+      Return self==value.
+
+
+   .. py:method:: __ne__(self, other)
+
+      Return self!=value.
+
+
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None, None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None, None, None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None, None, None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None, None, None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None, None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None,...
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None, None, None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None,...
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
+.. py:data:: thrift_spec
+   :annotation: = [None, None]
+
+   
+
