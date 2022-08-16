@@ -697,13 +697,13 @@ class HBaseCli:
             AttributeError: 表名格式不合法
         """
         if ns is not None:
-            tableName = TTableName(qualifier=table, ns=ns)
+            tableName = TTableName(qualifier=table.encode(), ns=ns.encode())
         else:
             tabelinfo = table.split(":")
             if len(tabelinfo) == 1:
-                tableName = TTableName(qualifier=table)
+                tableName = TTableName(qualifier=table.encode())
             elif len(tabelinfo) == 2:
-                tableName = TTableName(qualifier=tabelinfo[1], ns=tabelinfo[0])
+                tableName = TTableName(qualifier=tabelinfo[1].encode(), ns=tabelinfo[0].encode())
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
         sk = None
@@ -738,13 +738,13 @@ class HBaseCli:
             bool: 是否存在
         """
         if ns is not None:
-            tableName = TTableName(qualifier=table, ns=ns)
+            tableName = TTableName(qualifier=table.encode(), ns=ns.encode())
         else:
             tabelinfo = table.split(":")
             if len(tabelinfo) == 1:
-                tableName = TTableName(qualifier=table)
+                tableName = TTableName(qualifier=table.encode())
             elif len(tabelinfo) == 2:
-                tableName = TTableName(qualifier=tabelinfo[1], ns=tabelinfo[0])
+                tableName = TTableName(qualifier=tabelinfo[1].encode(), ns=tabelinfo[0].encode())
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
         flg = self.client.tableExists(tableName)
@@ -764,13 +764,13 @@ class HBaseCli:
             Dict[str, str]: 描述表基础信息
         """
         if ns is not None:
-            tableName = TTableName(qualifier=table, ns=ns)
+            tableName = TTableName(qualifier=table.encode(), ns=ns.encode())
         else:
             tabelinfo = table.split(":")
             if len(tabelinfo) == 1:
-                tableName = TTableName(qualifier=table)
+                tableName = TTableName(qualifier=table.encode())
             elif len(tabelinfo) == 2:
-                tableName = TTableName(qualifier=tabelinfo[1], ns=tabelinfo[0])
+                tableName = TTableName(qualifier=tabelinfo[1].encode(), ns=tabelinfo[0].encode())
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
 
@@ -814,13 +814,13 @@ class HBaseCli:
             List[Dict[str, Any]]: 列簇信息
         """
         if ns is not None:
-            tableName = TTableName(qualifier=table, ns=ns)
+            tableName = TTableName(qualifier=table.encode(), ns=ns.encode())
         else:
             tabelinfo = table.split(":")
             if len(tabelinfo) == 1:
-                tableName = TTableName(qualifier=table)
+                tableName = TTableName(qualifier=table.encode())
             elif len(tabelinfo) == 2:
-                tableName = TTableName(qualifier=tabelinfo[1], ns=tabelinfo[0])
+                tableName = TTableName(qualifier=tabelinfo[1].encode(), ns=tabelinfo[0].encode())
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
 
@@ -896,13 +896,13 @@ class HBaseCli:
             AttributeError: 表名格式不合法
         """
         if ns is not None:
-            tableName = TTableName(qualifier=table, ns=ns)
+            tableName = TTableName(qualifier=table.encode(), ns=ns.encode())
         else:
             tabelinfo = table.split(":")
             if len(tabelinfo) == 1:
-                tableName = TTableName(qualifier=table)
+                tableName = TTableName(qualifier=table.encode())
             elif len(tabelinfo) == 2:
-                tableName = TTableName(qualifier=tabelinfo[1], ns=tabelinfo[0])
+                tableName = TTableName(qualifier=tabelinfo[1].encode(), ns=tabelinfo[0].encode())
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
         self.client.deleteTable(tableName)
@@ -918,13 +918,13 @@ class HBaseCli:
             AttributeError: 表名格式不合法
         """
         if ns is not None:
-            tableName = TTableName(qualifier=table, ns=ns)
+            tableName = TTableName(qualifier=table.encode(), ns=ns.encode())
         else:
             tabelinfo = table.split(":")
             if len(tabelinfo) == 1:
-                tableName = TTableName(qualifier=table)
+                tableName = TTableName(qualifier=table.encode())
             elif len(tabelinfo) == 2:
-                tableName = TTableName(qualifier=tabelinfo[1], ns=tabelinfo[0])
+                tableName = TTableName(qualifier=tabelinfo[1].encode(), ns=tabelinfo[0].encode())
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
         self.client.truncateTable(tableName, preserveSplits)
@@ -939,13 +939,13 @@ class HBaseCli:
             AttributeError: 表名格式不合法
         """
         if ns is not None:
-            tableName = TTableName(qualifier=table, ns=ns)
+            tableName = TTableName(qualifier=table.encode(), ns=ns.encode())
         else:
             tabelinfo = table.split(":")
             if len(tabelinfo) == 1:
-                tableName = TTableName(qualifier=table)
+                tableName = TTableName(qualifier=table.encode())
             elif len(tabelinfo) == 2:
-                tableName = TTableName(qualifier=tabelinfo[1], ns=tabelinfo[0])
+                tableName = TTableName(qualifier=tabelinfo[1].encode(), ns=tabelinfo[0].encode())
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
         self.client.enableTable(tableName)
@@ -960,13 +960,13 @@ class HBaseCli:
             AttributeError: 表名格式不合法
         """
         if ns is not None:
-            tableName = TTableName(qualifier=table, ns=ns)
+            tableName = TTableName(qualifier=table.encode(), ns=ns.encode())
         else:
             tabelinfo = table.split(":")
             if len(tabelinfo) == 1:
-                tableName = TTableName(qualifier=table)
+                tableName = TTableName(qualifier=table.encode())
             elif len(tabelinfo) == 2:
-                tableName = TTableName(qualifier=tabelinfo[1], ns=tabelinfo[0])
+                tableName = TTableName(qualifier=tabelinfo[1].encode(), ns=tabelinfo[0].encode())
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
         self.client.disableTable(tableName)
@@ -984,13 +984,13 @@ class HBaseCli:
             bool: 是否已激活
         """
         if ns is not None:
-            tableName = TTableName(qualifier=table, ns=ns)
+            tableName = TTableName(qualifier=table.encode(), ns=ns.encode())
         else:
             tabelinfo = table.split(":")
             if len(tabelinfo) == 1:
-                tableName = TTableName(qualifier=table)
+                tableName = TTableName(qualifier=table.encode())
             elif len(tabelinfo) == 2:
-                tableName = TTableName(qualifier=tabelinfo[1], ns=tabelinfo[0])
+                tableName = TTableName(qualifier=tabelinfo[1].encode(), ns=tabelinfo[0].encode())
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
         return self.client.isTableEnabled(tableName)
@@ -1008,13 +1008,13 @@ class HBaseCli:
             bool: 是否已取消激活
         """
         if ns is not None:
-            tableName = TTableName(qualifier=table, ns=ns)
+            tableName = TTableName(qualifier=table.encode(), ns=ns.encode())
         else:
             tabelinfo = table.split(":")
             if len(tabelinfo) == 1:
-                tableName = TTableName(qualifier=table)
+                tableName = TTableName(qualifier=table.encode())
             elif len(tabelinfo) == 2:
-                tableName = TTableName(qualifier=tabelinfo[1], ns=tabelinfo[0])
+                tableName = TTableName(qualifier=tabelinfo[1].encode(), ns=tabelinfo[0].encode())
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
         return self.client.isTableDisabled(tableName)
@@ -1032,13 +1032,13 @@ class HBaseCli:
             bool: 是否可用
         """
         if ns is not None:
-            tableName = TTableName(qualifier=table, ns=ns)
+            tableName = TTableName(qualifier=table.encode(), ns=ns.encode())
         else:
             tabelinfo = table.split(":")
             if len(tabelinfo) == 1:
-                tableName = TTableName(qualifier=table)
+                tableName = TTableName(qualifier=table.encode())
             elif len(tabelinfo) == 2:
-                tableName = TTableName(qualifier=tabelinfo[1], ns=tabelinfo[0])
+                tableName = TTableName(qualifier=tabelinfo[1].encode(), ns=tabelinfo[0].encode())
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
         return self.client.isTableAvailable(tableName)
@@ -1095,13 +1095,13 @@ class HBaseCli:
             AttributeError: 表名格式不合法
         """
         if ns is not None:
-            tableName = TTableName(qualifier=table, ns=ns)
+            tableName = TTableName(qualifier=table.encode(), ns=ns.encode())
         else:
             tabelinfo = table.split(":")
             if len(tabelinfo) == 1:
-                tableName = TTableName(qualifier=table)
+                tableName = TTableName(qualifier=table.encode())
             elif len(tabelinfo) == 2:
-                tableName = TTableName(qualifier=tabelinfo[1], ns=tabelinfo[0])
+                tableName = TTableName(qualifier=tabelinfo[1].encode(), ns=tabelinfo[0].encode())
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
         _bloomnFilterType = None
@@ -1155,13 +1155,13 @@ class HBaseCli:
             AttributeError: _description_
         """
         if ns is not None:
-            tableName = TTableName(qualifier=table, ns=ns)
+            tableName = TTableName(qualifier=table.encode(), ns=ns.encode())
         else:
             tabelinfo = table.split(":")
             if len(tabelinfo) == 1:
-                tableName = TTableName(qualifier=table)
+                tableName = TTableName(qualifier=table.encode())
             elif len(tabelinfo) == 2:
-                tableName = TTableName(qualifier=tabelinfo[1], ns=tabelinfo[0])
+                tableName = TTableName(qualifier=tabelinfo[1].encode(), ns=tabelinfo[0].encode())
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
         self.client.deleteColumnFamily(tableName, family.encode("utf-8"))
@@ -1219,13 +1219,13 @@ class HBaseCli:
             AttributeError: 表名格式不合法
         """
         if ns is not None:
-            tableName = TTableName(qualifier=table, ns=ns)
+            tableName = TTableName(qualifier=table.encode(), ns=ns.encode())
         else:
             tabelinfo = table.split(":")
             if len(tabelinfo) == 1:
-                tableName = TTableName(qualifier=table)
+                tableName = TTableName(qualifier=table.encode())
             elif len(tabelinfo) == 2:
-                tableName = TTableName(qualifier=tabelinfo[1], ns=tabelinfo[0])
+                tableName = TTableName(qualifier=tabelinfo[1].encode(), ns=tabelinfo[0].encode())
             else:
                 raise AttributeError(f"parameter table syntax error: {table}")
         _bloomnFilterType = None
