@@ -663,8 +663,8 @@ class HBaseCli:
             name = ""
             if TableDescriptor.tableName:
                 tn = TableDescriptor.tableName
-                nsn = tn.ns.decode("utf - 8")
-                t = tn.qualifier.decode("utf - 8")
+                nsn = tn.ns.decode("utf-8")
+                t = tn.qualifier.decode("utf-8")
                 name = f"{nsn}:{t}"
             meta = {
                 "name": name,
